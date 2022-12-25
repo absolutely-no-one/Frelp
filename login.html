@@ -5,21 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="tailwind.css">
-
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
-        <script src="index.js"></script>
+        <script src="/index.js"></script>
+        <script src="/login.js"></script>
     </head>
-    <body>
-        <!-- fancy starting page here -->
-        <button onclick="switchPageTo('login')">Login</button>
-        <br>
-        <button onclick="switchPageTo('signup')">Sign up</button>
-        <br>
-        <button onclick="signOut()">Sign out</button>
-        <br>
-        <button onclick="signedIn()">Signed in?</button>
+    <body class="bg-slate-500">
+        <form onsubmit="return false">
+            <label for="email">Email:</label>
+            <input id="email" type="email" name="email" required>
+            <br>
+            <label for="password">Password:</label>
+            <input id="password" type="password" required>
+            <br>
+            <button onclick="login()">go</button>
+        </form>
+        <p id="login"></p>
+        <button onclick="signedIn()">hi</button>
     </body>
 </html>
