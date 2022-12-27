@@ -34,10 +34,9 @@ function createAccount(email, password, username) {
     // Signed in 
     user = userCredential.user;
     signIn(email, password, "home");
-    databaseUsers.push({
-      "user": "user",
-      "username": "hi",
-      "sets": ["1", "2"]
+    databaseUsers.child(user.uid).set({
+      "username": username.toString(),
+      "sets": []
     });
   })
   .catch((error) => {
