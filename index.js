@@ -16,15 +16,21 @@ var user;
 var databaseUsers = firebase.database().ref("users");
 
 firebase.auth().onAuthStateChanged((currentUser) => {
+
+  if (databaseUsers.child(currentUser.uid).child("username") == null && currentUser.uid != null) {
+    databaseUsers.child(currentUser.uid).set({
+      "username": currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@")),
+    });
+  }
   if (currentUser) {
     user = currentUser;
     console.log("signed in");
     console.log(user);
-    if (window.location.href.indexOf("index.html") > -1) {
+    if (window.location.href.indexOf("index.html") > -1 || window.location.href.indexOf("login.html") > -1) {
       switchPageTo("home");
     }
   } else {
-    console.log("not signed in")
+    console.log("not signed in");
   }
 })
 
@@ -60,6 +66,11 @@ function signIn(email, password, nextPage) {
     var errorMessage = error.message;
     accountError(errorCode, errorMessage);
   })
+}
+
+function loginWithGoogle() {
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithRedirect(provider);
 }
 
 function signOut() {

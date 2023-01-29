@@ -13,7 +13,7 @@
         <script src="/login.js"></script>
     </head>
     <body class="bg-slate-500">
-        <form onsubmit="return false">
+        <!--<form onsubmit="return false">
             <label for="email">Email:</label>
             <input id="email" type="email" name="email" required>
             <br>
@@ -21,7 +21,11 @@
             <input id="password" type="password" required>
             <br>
             <button onclick="login()">go</button>
-        </form>
+            <button onclick="loginWithGoogle()" class="text-2xl py-1 px-8 font-extrabold text-gray-600 border-4 rounded-md border-gray-600">Login with google</button>
+            <br>
+        </form>-->
+        <button onclick="loginWithGoogle()" class="text-2xl py-1 px-8 font-extrabold text-gray-600 border-4 rounded-md border-gray-600">Login with google</button>
+        <br>
         <p id="login"></p>
         <button onclick="signedIn()">hi</button>
     </body>

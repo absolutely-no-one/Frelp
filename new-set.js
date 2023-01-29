@@ -20,7 +20,9 @@ function addTerm() {
     terms.appendChild(container);
 }
 
-function createSet() {
+function createSet(type) {
+    switch (type) {
+        case "vocab":
     const element = document.getElementById("terms");
     var terms = []
     for (var i = 0; i < element.children.length; i++) {
@@ -29,8 +31,27 @@ function createSet() {
         term["definition"] = element.children[i].children[1].value; // if length < 1, throw error
         terms.push(term);
     }
-    firebase.database().ref("sets").push().set({
-        "name": document.getElementById("title").value,
-        "terms": terms
+    var newSet = firebase.database().ref("sets/vocab").push();
+    var newSetKey = newSet.key;
+    var username = firebase.database().ref("users/" + user.uid + "/username");
+    username.once("value").then((snapshot) => {
+        newSet.set({
+            "name": document.getElementById("title").value,
+            "author": snapshot.val(),
+            "terms": terms
+        })
     })
+    var userSets = firebase.database().ref("users/" + user.uid + "/sets");
+    userSets.update({
+        [newSetKey] : {
+            "type": "vocab",
+            "name": document.getElementById("title").value,
+        }
+    }).then(() => {
+        switchPageTo("home");
+    })
+    break;
+    default:
+        console.log("type not recognized");
+}
 }
