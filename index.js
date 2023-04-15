@@ -16,13 +16,13 @@ var user;
 var databaseUsers = firebase.database().ref("users");
 
 firebase.auth().onAuthStateChanged((currentUser) => {
-
+  if (currentUser) {
   if (databaseUsers.child(currentUser.uid).child("username") == null && currentUser.uid != null) {
     databaseUsers.child(currentUser.uid).set({
       "username": currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@")),
     });
   }
-  if (currentUser) {
+
     user = currentUser;
     console.log("signed in");
     console.log(user);
@@ -30,7 +30,7 @@ firebase.auth().onAuthStateChanged((currentUser) => {
       switchPageTo("home");
     }
   } else {
-    console.log("not signed in");
+    console.log(currentUser);
   }
 })
 
@@ -41,7 +41,7 @@ function createAccount(email, password, username) {
     user = userCredential.user;
     signIn(email, password, "home");
     databaseUsers.child(user.uid).set({
-      "username": username.toString(),
+      "username": username.toString().trim(),
       "sets": []
     });
   })
@@ -70,7 +70,7 @@ function signIn(email, password, nextPage) {
 
 function loginWithGoogle() {
   var provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithRedirect(provider);
+  firebase.auth().signInWithPopup(provider);
 }
 
 function signOut() {
@@ -88,7 +88,16 @@ function signOut() {
 
 function accountError(code, message) {
   alert(code + " " + message);
-  console.log(message);
+  switch (code) {
+    case "auth/invalid-email": 
+      alert("Error: Invalid email.  Please try again or create a new account by going to the previous page.");
+    break;
+    case "auth/wrong-password":
+      alert("Error: Incorrect password.");
+    break;
+    default: 
+      alert("whoops");
+  }
 }
 
 function switchPageTo(page) {
@@ -98,4 +107,8 @@ function switchPageTo(page) {
 function signedIn() {
   const user = firebase.auth().currentUser;
   console.log(user);
+}
+
+function openPreferences() {
+  alert("preferences")
 }
