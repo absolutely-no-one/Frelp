@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="tailwind.css">
+
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
+        <script src="/index.js"></script>
+        <script src="flashcards.js"></script>
+    </head>
+    <body onload="generateCards()">
+        <h1>Hello</h1>
+        <div id="card"></div>
+        <div id="next" onclick="changeCard(1)">Next card</div>
+        <div id="last" onclick="changeCard(-1)"">Previous card</div>
+        <div id="startQuiz" onclick="playGame('quiz')">Quiz me!</div>
+    </body>
+</html>
