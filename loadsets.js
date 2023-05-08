@@ -13,12 +13,12 @@ function loadMySets() {
           user2 = currentUser;
           data = firebase.database().ref("/users/" + user2.uid);
           data.child("username").once("value").then((snapshot) => {
-            document.getElementById("welcome").innerHTML = "Welcome, " + snapshot.val();
+            document.getElementById("welcome-name").innerHTML = snapshot.val();
           })
           data.child("sets").once("value").then((snapshot) => {
             snapshot.forEach((childSnapshot) => {
               var container = document.createElement("div");
-              container.setAttribute("class", "bg-blue-300");
+              container.setAttribute("class", "bg-blue-300 m-4 mt-0 rounded-md p-4 w-1/2 sm:w-1/3 md:w-1/4");
               container.onclick = () => {
                 window.location.href = "/playset.html?id=" + childSnapshot.key + "&type=" + childSnapshot.val().type;
               };

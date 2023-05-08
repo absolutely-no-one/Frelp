@@ -1,8 +1,9 @@
+const url = window.location.search;
+const urlSearch = new URLSearchParams(url);
+const id = urlSearch.get("id");
+const type = urlSearch.get("type");
+
 function getData() {
-    const url = window.location.search;
-    const urlSearch = new URLSearchParams(url);
-    const id = urlSearch.get("id");
-    const type = urlSearch.get("type");
     const data = firebase.database().ref("/sets/" + type + "/" + id);
 
     var setName = document.getElementById("setName");
@@ -13,4 +14,8 @@ function getData() {
         setName.innerHTML = val.name;
         setAuthor.innerHTML = val.author;
     })
+}
+
+function playGame(game) {
+    window.location.href = game + ".html?id=" + id + "&type=" + type;
 }
