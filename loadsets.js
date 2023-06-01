@@ -18,7 +18,7 @@ function loadMySets() {
           data.child("sets").once("value").then((snapshot) => {
             snapshot.forEach((childSnapshot) => {
               var container = document.createElement("div");
-              container.setAttribute("class", "bg-gray-200 m-4 my-0 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none");
+              container.setAttribute("class", "bg-gray-200 ml-0 mr-8 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none");
               container.onclick = () => {
                 window.location.href = "/playset.html?id=" + childSnapshot.key + "&type=" + childSnapshot.val().type;
               };
@@ -40,7 +40,7 @@ function loadMySets() {
           newSetData.child("vocab").limitToLast(5).once("value").then((snapshot) => {
             snapshot.forEach((childSnapshot) => {
               var container = document.createElement("div");
-              container.setAttribute("class", "bg-gray-200 m-4 my-0 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none");
+              container.setAttribute("class", "bg-gray-200 ml-0 mr-8 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none");
               container.onclick = () => {
                 window.location.href = "/playset.html?id=" + childSnapshot.key + "&type=vocab";
               };
