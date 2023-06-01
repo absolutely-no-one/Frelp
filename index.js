@@ -104,6 +104,10 @@ function switchPageTo(page) {
   window.location.href = "/" + page + ".html";
 }
 
+function playGame(game) {
+  window.location.href = "/activities/" + game + ".html?id=" + id + "&type=" + type;
+}
+
 function signedIn() {
   const user = firebase.auth().currentUser;
   console.log(user);

@@ -6,23 +6,26 @@
 
         <link rel="stylesheet" href="tailwind.css">
 
+        <script src="https://cdn.tailwindcss.com"></script>
+
+
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
         <script src="index.js"></script>
         <script src="playset.js"></script>
     </head>
-    <body onload="getData()">
-        <div id="setName"></div>
-        <div id="setAuthor"></div>
-        <div id="activities">
-            <h1> Pick an activity to do.  Choose.  NOW! </h1>
-            <button id="flashcard-review" onclick="playGame('flashcards')">Flashcards</button>
-            <div id="matching-game"></div>
-            <div id="typing">Typing</div>
+    <body onload="getData()" class="bg-black">
+        <h1 id="setName" class="text-white text-4xl sm:text-5xl md:text-6xl font-semibold px-3 pt-3 sm:px-10"></h1>
+        <div id="setAuthor" class="text-white text-md sm:text-lg md:text-xl font-light italic px-3 sm:px-10"></div>
+        <div class="text-white text-2xl sm:text-3xl md:text-4xl px-3 py-2">Choose an activity to do</div>
+        <div id="activities" class="text-white w-full px-3 pt-2">
+            <div id="flashcard-review" class="hover:cursor-pointer w-5/6 text-center mx-auto bg-blue-500 bg-french-blue text-white hover:text-gray-200 text-3xl md:text-4xl font-bold p-2 rounded-md" onclick="playGame('flashcards')">Flashcards</div>
+            <div id="matching-game" class="hover:cursor-pointer w-5/6 text-center mx-auto bg-blue-500 bg-french-blue text-white hover:text-gray-200 text-3xl md:text-4xl font-bold p-2 mt-2 rounded-md"> Match Game </div>
+            <div id="typing" class="hover:cursor-pointer w-5/6 text-center mx-auto bg-blue-500 bg-french-blue text-white hover:text-gray-200 text-3xl md:text-4xl font-bold p-2 mt-2 rounded-md">Typing</div>
             <div id="tower-defense"></div> <!-- may delete -->
             <div id="hangman"></div>
-            <div id="quiz"></div>
+            <div id="quiz" class="hover:cursor-pointer w-5/6 text-center mx-auto bg-blue-500 bg-french-blue text-white hover:text-gray-200 text-3xl md:text-4xl font-bold p-2 mt-2 rounded-md" onclick="playGame('quiz')">Quiz</div>
         </div>
         <button id="favorite">Add to favorites</button>
     </body>

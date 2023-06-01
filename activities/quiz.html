@@ -13,7 +13,26 @@
         <script src="quiz.js"></script>
     </head>
     <body onload="getMaxQs()">
-        <h1>Select your quiz options.  Again, choose wisely</h1>
-        <div id="parameters"></div>
+        <div id="setup">
+            <h1>Select your quiz options.  Again, choose wisely</h1>
+            <div id="parameters">
+                <div id="qType">
+                    <p>Choose quiz type</p>
+                    <input type="radio" id="multipleChoice" name="quizType" value="multipleChoice" required>
+                    <label for="multipleChoice">Multiple Choice</label>
+                    <br>
+                    <input type="radio" id="written" name="quizType" value="written" required>
+                    <label for="written">Written</label>
+                </div>
+                <div id="questionNum">
+                    <p>Number of questions</p>
+                    <input type="number" id="questions" name="questions" min="1" value="1" max="1" required>
+                </div>
+                <button id="submit" onclick="generateQuiz()">Submit</button>
+            </div>
+        </div>
+        <div id="quiz">
+            <div id="completion"></div>
+        </div>
     </body>
 </html>

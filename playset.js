@@ -12,10 +12,6 @@ function getData() {
     data.once("value").then((snapshot) => {
         const val = snapshot.val();
         setName.innerHTML = val.name;
-        setAuthor.innerHTML = val.author;
+        setAuthor.innerHTML = "By " + val.author;
     })
-}
-
-function playGame(game) {
-    window.location.href = game + ".html?id=" + id + "&type=" + type;
 }

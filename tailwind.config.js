@@ -4,7 +4,8 @@ module.exports = {
     extend: {
       colors: {
         "french-red": "#ED2939",
-        "french-blue": "#002654"
+        "french-blue": "#002654",
+        "amber": "#FFBE0B"
       }
     },
     screens: {
