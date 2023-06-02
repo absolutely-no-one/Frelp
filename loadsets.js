@@ -20,7 +20,7 @@ function loadMySets() {
               var container = document.createElement("div");
               container.setAttribute("class", "bg-gray-200 ml-0 mr-8 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none");
               container.onclick = () => {
-                window.location.href = "/playset.html?id=" + childSnapshot.key + "&type=" + childSnapshot.val().type;
+                window.location.href = "/Frelp/playset.html?id=" + childSnapshot.key + "&type=" + childSnapshot.val().type;
               };
 
               var name = document.createElement("h1");
@@ -42,7 +42,7 @@ function loadMySets() {
               var container = document.createElement("div");
               container.setAttribute("class", "bg-gray-200 ml-0 mr-8 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none");
               container.onclick = () => {
-                window.location.href = "/playset.html?id=" + childSnapshot.key + "&type=vocab";
+                window.location.href = "/Frelp/playset.html?id=" + childSnapshot.key + "&type=vocab";
               };
 
               var name = document.createElement("h1");
@@ -63,7 +63,7 @@ function loadMySets() {
               container.appendChild(name);
               container.appendChild(author);
               container.appendChild(totalTerms);
-              vocabSets.appendChild(container);
+              vocabSets.prepend(container);
             })
           })
 
