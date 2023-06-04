@@ -4,19 +4,18 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="tailwind.css">
 
-        <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
         <script src="index.js"></script>
     </head>
     <body class="bg-black">
-        <div class="bg-gradient-to-b from-blue-900 to-black p-2 pt-6 text-center sm:text-left sm:py-24 sm:px-12 md:py-48 md:px-32 sm:flex">
+        <div class="bg-gradient-to-b from-french-blue/80 to-black p-2 pt-6 text-center sm:text-left sm:py-24 sm:px-12 md:py-48 md:px-32 sm:flex">
             <div class="sm:w-5/12">
-                <h1 class="font-bold text-red-500 pb-2 text-5xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl underline">Greetings</h1>
-                <p class="text-gray-100 text-lg sm:text-3xl lg:text-4xl">Welcome to Frelp, the site that helps you learn French for free</p>
+                <h1 class="font-bold text-white pb-2 text-5xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl underline decoration-amber">Greetings</h1>
+                <p class="text-transparent bg-gradient-to-b from-french-blue via-white to-french-red bg-clip-text text-lg sm:text-3xl lg:text-4xl">Welcome to Frelp, the site that helps you learn French for free</p>
             </div>
             <div class="sm:w-3/12 md:w-none"></div>
             <div class="py-6 mx-auto w-1/2 sm:w-2/3 sm:block sm:mx-none sm:p-0 md:w-1/2">
@@ -28,9 +27,9 @@
         </div>
 
         <div class="text-center mx-auto space-y-2 w-full mt-2 p-2 sm:absolute sm:top-0 sm:left-0 sm:flex sm:flex-row-reverse sm:space-y-0 sm:bg-transparent sm:mt-0 sm:py-4">
-        <button onclick="switchPageTo('login')" class="py-1 px-8 font-extrabold text-red-500 hover:text-red-700 border-4 border-gray-100 rounded-md bg-gray-100 text-2xl sm:text-4xl sm:mx-4 sm:bg-transparent sm:border-none sm:px-0 sm:font-semibold">Login</button>
+        <button onclick="switchPageTo('login')" class="py-1 px-8 font-extrabold text-white hover:decoration-amber  border-4 border-gray-100 rounded-md bg-gray-100 text-2xl sm:text-4xl sm:mx-4 sm:bg-transparent sm:border-none sm:px-0 sm:font-semibold">Login</button>
         <h2 class="text-center text-2xl font-bold text-white sm:hidden">Or</h2>
-        <button onclick="switchPageTo('signup')" class="py-1 px-8 font-extrabold text-red-500 hover:text-red-700 border-4 border-gray-100 rounded-md bg-gray-100 text-2xl sm:text-4xl sm:mx-4 sm:bg-transparent sm:border-none sm:px-0 sm:font-semibold">Sign up</button>
+        <button onclick="switchPageTo('signup')" class="py-1 px-8 font-extrabold text-white hover:decoration-amber hover:underline border-4 border-gray-100 rounded-md bg-gray-100 text-2xl sm:text-4xl sm:mx-4 sm:bg-transparent sm:border-none sm:px-0 sm:font-semibold">Sign up</button>
         </div>
 
         <div class="p-2">
