@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html class="bg-gradient-to-br from-blue-900 from-25% to-red-900 to-75% min-h-full">
+<html class="bg-gradient-to-br from-blue-900 from-50% to-red-900 to-50% min-h-full">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="tailwind.css">
-        <script src="https://cdn.tailwindcss.com"></script>
+
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
@@ -13,7 +13,7 @@
         <script src="login.js"></script>
     </head>
     <body class="py-2 sm:w-1/2 lg:w-5/12 mx-auto">
-        <h1 class="text-white mx-auto text-center text-6xl font-bold pb-4"> Login </h1>
+        <h1 class="text-white mx-auto text-center text-6xl font-bold pb-4 decoration-amber underline"> Login </h1>
         <form onsubmit="return false" class="bg-gray-200 w-11/12 p-4 mx-auto rounded-lg shadow-md">
             <label for="email" class="text-gray-600 font-semibold text-lg sm:text-xl md:text-3xl">Email: </label>
             <input id="email" type="email" name="email" required class="rounded-md float-right pl-2 md:h-8">
@@ -21,10 +21,10 @@
             <label for="password" class="text-gray-600 font-semibold text-lg sm:text-xl md:text-3xl">Password:</label>
             <input id="password" type="password" required class="rounded-md float-right pl-2 md:h-8">
             <br>
-            <p onclick="login()" class="hover:cursor-pointer w-min text-center mx-auto text-french-red text-red-600 hover:text-red-700 underline text-3xl md:text-4xl font-bold pt-2 -pb-2">Enter</p>
+            <p onclick="login()" class="hover:cursor-pointer w-min text-center mx-auto text-french-red hover:text-red-700 underline text-3xl md:text-4xl font-bold pt-2 -pb-2">Enter</p>
         </form>
         <p class="text-white text-3xl p-2 text-center font-bold"> OR </p>
-        <div onclick="loginWithGoogle()" class="text-2xl md:text-3xl lg:text-4xl py-1 px-8 font-bold text-center w-11/12 mx-auto hover:cursor-pointer hover:bg-gray-300 hover:border-gray-300 hover:text-red-700 text-french-red text-red-600 border-4 rounded-md bg-gray-200 shadow-md">Login with google</div>
-        <div onclick="switchPageTo('index')" class="text-2xl md:text-3xl py-1 px-4 font-bold text-center w-1/2 mx-auto mt-2 hover:cursor-pointer hover:bg-gray-300 hover:border-gray-300 hover:text-red-700 text-french-red text-red-600 border-4 rounded-md bg-gray-200 shadow-md">Home</div>
+        <div onclick="loginWithGoogle()" class="text-2xl md:text-3xl lg:text-4xl py-1 px-8 font-bold text-center w-11/12 mx-auto hover:cursor-pointer hover:bg-gray-300 hover:border-gray-300 hover:text-red-700 text-french-red border-4 rounded-md bg-gray-200 shadow-md">Login with google</div>
+        <div onclick="switchPageTo('index')" class="text-2xl md:text-3xl py-1 px-4 font-bold text-center w-1/2 mx-auto mt-2 hover:cursor-pointer hover:bg-gray-300 hover:border-gray-300 hover:text-red-700 text-french-red border-4 rounded-md bg-gray-200 shadow-md">Home</div>
     </body>
 </html>
