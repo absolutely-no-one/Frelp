@@ -101,7 +101,7 @@ function accountError(code, message) {
 }
 
 function switchPageTo(page) {
-  window.location.href = "/Frelp/" + page + ".html";
+  window.location.href = "./" + page + ".html";
 }
 
 function playGame(game) {
