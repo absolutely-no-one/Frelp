@@ -33,6 +33,7 @@ function createSet(type) {
     const element = document.getElementById("terms");
     var terms = [];
     var count = 0;
+    var categories = [];
     // Ensure terms actually exist
     if (element.children.length < 1) {
         alert("Add terms, silly!");
@@ -47,6 +48,15 @@ function createSet(type) {
             count++;
         }
 
+        var cats = document.getElementById("categories").getElementsByTagName("*");
+        for (var i = 0; i < cats.length; i++) {
+            categories.push(cats[i].innerHTML.substring(0, cats[i].innerHTML.length - 2));
+        }
+
+        if (cats.length == 0) {
+            categories.push("No category");
+        }
+
         var newSet = firebase.database().ref("sets/vocab").push();
         var newSetKey = newSet.key;
         var username = firebase.database().ref("users/" + user.uid + "/username");
@@ -55,7 +65,8 @@ function createSet(type) {
                 "name": document.getElementById("title").value,
                 "author": snapshot.val(),
                 "terms": terms,
-                "totalterms": count
+                "totalterms": count,
+                "categories": categories
             })
         })
         var userSets = firebase.database().ref("users/" + user.uid + "/sets");

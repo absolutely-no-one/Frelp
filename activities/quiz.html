@@ -18,11 +18,22 @@
             <div id="parameters">
                 <div id="qType">
                     <p>Choose quiz type</p>
-                    <input type="radio" id="multipleChoice" name="quizType" value="multipleChoice" required>
+                    <input type="radio" id="multipleChoice" name="quizType" value="multipleChoice" checked="checked" required>
                     <label for="multipleChoice">Multiple Choice</label>
                     <br>
                     <input type="radio" id="written" name="quizType" value="written" required>
                     <label for="written">Written</label>
+                </div>
+                <div id="language">
+                    <p>Answer with</p>
+                    <input type="radio" id="frenchQs" name="quizLang" value="french" checked="checked" required>
+                    <label for="french">English</label>
+                    <br>
+                    <input type="radio" id="written" name="quizLang" value="english" required>
+                    <label for="english">French</label>    
+                    <br>
+                    <input type="radio" id="written" name="quizLang" value="random" required>
+                    <label for="random">Random</label>    
                 </div>
                 <div id="questionNum">
                     <p>Number of questions</p>

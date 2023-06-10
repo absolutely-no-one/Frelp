@@ -1,3 +1,8 @@
+window.addEventListener("load", function () {
+  loadSets();
+  detectInput('category', 'possibleCategories', 'categories', 'possibleCategories');
+})
+
 function loadSets() {
     loadMySets();
     // load most popular/liked sets
@@ -18,7 +23,7 @@ function loadMySets() {
           data.child("sets").once("value").then((snapshot) => {
             snapshot.forEach((childSnapshot) => {
               var container = document.createElement("div");
-              container.setAttribute("class", "bg-gray-200 ml-0 mr-8 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none");
+              container.setAttribute("class", "bg-gray-200 ml-0 mr-8 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none hover:cursor-pointer");
               container.onclick = () => {
                 window.location.href = "/Frelp/playset.html?id=" + childSnapshot.key + "&type=" + childSnapshot.val().type;
               };
@@ -49,6 +54,9 @@ function loadMySets() {
               name.innerHTML = childSnapshot.val().name;
               name.setAttribute("class", "text-2xl text-truncate line-clamp-2");
 
+              var categories = document.createElement("div");
+              categories.innerHTML = childSnapshot.val().categories;
+
               var author = document.createElement("p");
               author.innerHTML = "A set by " + childSnapshot.val().author;
               author.setAttribute("class", "italic");
@@ -61,6 +69,7 @@ function loadMySets() {
               }
 
               container.appendChild(name);
+              container.appendChild(categories);
               container.appendChild(author);
               container.appendChild(totalTerms);
               vocabSets.prepend(container);

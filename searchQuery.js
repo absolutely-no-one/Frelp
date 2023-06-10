@@ -3,6 +3,7 @@ function searchQuery() {
     document.getElementById("searchResults").style.display = "grid";
     document.getElementById("backArrow").style.display = "block";
     document.getElementById("filter").style.display = "block";
+    document.getElementById("noResults").style.display = "none";
 
     var posCats = document.getElementById("categories");
     var cats = [];
@@ -48,7 +49,12 @@ function searchQuery() {
                 }
             })
         })
-        searchResults.replaceChildren(...childrenArray);
+        if (childrenArray.length > 0) {
+            searchResults.replaceChildren(...childrenArray);
+        } else {
+            document.getElementById("noResults").style.display = "block";
+            document.getElementById("searchResults").style.display = "none";
+        }
     })
 }
 
