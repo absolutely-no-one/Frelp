@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="bg-gradient-to-bl from-blue-900/75 from-50% to-red-900/75 to-50% min-h-full">
+<html class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% min-h-full bg-fixed">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +7,18 @@
         <link rel="stylesheet" href="tailwind.css">
         <link rel="stylesheet" href="scrollbar.css">
 
-        <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
         <script src="index.js"></script>
         <script src="loadsets.js"></script>
         <script src="searchQuery.js"></script>
+        <script src="/create/categoryFilter.js"></script>
 
     </head>
-    <body onload="loadSets()">
-        <div class="bg-blue-900">
+    <!-- icons from heroicons.com -->
+    <body>
+        <div class="bg-french-blue">
             <button id="user" class="absolute right-2 top-2 sm:right-6 sm:top-2" onclick="openPreferences()">
             <svg class="w-12 h-12 sm:w-20 sm:h-20" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path clip-rule="evenodd" fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"></path>
@@ -32,32 +33,70 @@
 
         <!-- line with circle in middle-->
         <div class="flex w-11/12 mx-auto pb-4 pt-2 sm:pt-4">
-            <div class="outline-[#FFBE0B] outline outline-1 sm:outline-2 w-1/2 h-0 my-auto"></div>
-            <div class="border-[#FFBE0B] border-2 sm:border-4 rounded-full w-3 h-3 sm:w-5 sm:h-5"></div>
-            <div class="outline-[#FFBE0B] outline outline-1 sm:outline-2 w-1/2 h-0 my-auto"></div>
+            <div class="outline-amber outline outline-1 sm:outline-2 w-1/2 h-0 my-auto"></div>
+            <div class="border-amber border-2 sm:border-4 rounded-full w-3 h-3 sm:w-5 sm:h-5"></div>
+            <div class="outline-amber outline outline-1 sm:outline-2 w-1/2 h-0 my-auto"></div>
         </div>
 
-        <div class="w-11/12 md:w-1/3 mx-auto md:mx-10">
-        <input id="search" type="text" onchange="searchQuery()" class="text-gray-500 bg-gray-200 rounded-full w-full text-2xl sm:text-3xl md:text-4xl font-semibold px-3 sm:px-10 mb-4" placeholder="Search for a set">
+        <span class="grid grid-cols-12 w-11/12 mx-auto -mt-2 -mb-1">
+            <svg id="backArrow" onclick="returnHome()" class="relative hidden w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 col-span-1 text-amber" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+            </svg>     
+
+            <span id="searchContainer" class="col-span-11 w-11/12 md:w-1/2 xl:w-1/3">          
+                <input id="search" type="text" onchange="searchQuery()" class="text-gray-500 bg-gray-200 rounded-full w-full text-2xl sm:text-3xl md:text-4xl font-semibold px-3 sm:px-6 mb-4" placeholder="Search for a set">
+            </span>
+        </span>
+
+        <div id="filter" class="bg-french-blue hidden w-11/12 md:w-1/2 md:mx-11 xl:mx-14 mx-auto px-2 md:px-4 md:py-2 rounded-md">
+            <div id="categories" class="inline-block my-1 -ml-1 md:mt-0"><div class="text-white text-lg md:text-2xl ml-1 font-bold">Filters:</div></div>
+            <div id="catFilter">
+                <input type="text" placeholder="Add category" name="category" id="category" class="w-3/4 md:w-1/2 md:text-lg xl:text-xl px-1 rounded-sm focus:rounded-b-none focus:outline-none">
+                <br>
+                <div class="h-1/12 w-3/4 md:w-1/2">
+                    <div id="possibleCategories" class="bg-white md:text-lg xl:text-xl -mt-0.5 px-1 rounded-b-sm max-w-max max-h-20 overflow-y-scroll no-scrollbar hidden text-gray-600">
+                        <div class="w-full hover:cursor-pointer">Animals</div>
+                        <div class="w-full hover:cursor-pointer">Advanced</div>
+                        <div class="w-full hover:cursor-pointer">Beginner</div>
+                        <div class="w-full hover:cursor-pointer">Body</div>
+                        <div class="w-full hover:cursor-pointer">Classroom</div>
+                        <div class="w-full hover:cursor-pointer">Countries</div>
+                        <div class="w-full hover:cursor-pointer">Food</div>
+                        <div class="w-full hover:cursor-pointer">Geography</div>
+                        <div class="w-full hover:cursor-pointer">Health</div>
+                        <div class="w-full hover:cursor-pointer">House</div>
+                        <div class="w-full hover:cursor-pointer">Intermediate</div>
+                        <div class="w-full hover:cursor-pointer">Introductions</div>
+                        <div class="w-full hover:cursor-pointer">Music</div>
+                        <div class="w-full hover:cursor-pointer">School</div>
+                        <div class="w-full hover:cursor-pointer">Sports</div>
+                        <div class="w-full hover:cursor-pointer">Transportation</div>
+                        <div class="w-full hover:cursor-pointer">Travel</div>
+                        <div class="w-full hover:cursor-pointer">Work</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-2"></div>
         </div>
 
         <div id="sets">
-            <h1 class="text-white text-4xl underline decoration-[#FFBE0B] underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2">My study sets</h1>
+            <h1 class="text-white text-4xl underline decoration-amber underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2">My study sets</h1>
 
-            <div class="bg-blue-900 sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
+            <div class="bg-french-blue sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
                 <div id="my-sets" class="flex flex-nowrap overflow-x-scroll no-scrollbar"></div>
             </div>
 
-            <h1 class="text-white text-4xl underline decoration-[#FFBE0B] underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2"> Newest vocab sets </h1>
+            <h1 class="text-white text-4xl underline decoration-amber underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2"> Newest vocab sets </h1>
 
-            <div class="bg-blue-900 sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
+            <div class="bg-french-blue sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
                 <div id="vocab-sets" class="flex flex-nowrap overflow-x-scroll no-scrollbar"></div>
             </div>
         </div>
 
-        <div id="searchResults" class="hidden flex-nowrap overflow-x-scroll py-2 mr-4 no-scrollbar"></div>
+        <div id="searchResults" class="hidden grid-cols-1 xsm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-auto p-2 my-4 no-scrollbar w-11/12 md:mx-11 xl:mx-14 rounded-md bg-french-blue"></div>
 
         <button onclick="switchPageTo('create/vocab')">Create a set</button>
         <button onclick="signOut()" class="bg-white">Sign out</button> <!-- move to preferences -->
+        <p> Icons from <a href="https://heroicons.com">heroicons.com</a></p>
     </body>
 </html>
