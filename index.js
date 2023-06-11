@@ -104,6 +104,10 @@ function switchPageTo(page) {
   window.location.href = "./" + page + ".html";
 }
 
+function switchPageToFolder(page) {
+  window.location.href = "../" + page + ".html";
+}
+
 function playGame(game) {
   window.location.href = "/activities/" + game + ".html?id=" + id + "&type=" + type;
 }
@@ -114,5 +118,12 @@ function signedIn() {
 }
 
 function openPreferences() {
-  alert("preferences")
+  var preferences = document.getElementById("preferencesTabs");
+  if (preferences.style.display == "none") {
+    preferences.style.display = "grid";
+    document.getElementById("user").classList.add("bg-blue-700");
+  } else {
+    preferences.style.display = "none";
+    document.getElementById("user").classList.remove("bg-blue-700");
+  }
 }
