@@ -109,7 +109,7 @@ function switchPageToFolder(page) {
 }
 
 function playGame(game) {
-  window.location.href = "/activities/" + game + ".html?id=" + id + "&type=" + type;
+  window.location.href = "./activities/" + game + ".html?id=" + id + "&type=" + type;
 }
 
 function signedIn() {
