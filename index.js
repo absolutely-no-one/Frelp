@@ -119,6 +119,7 @@ function signedIn() {
 
 function openPreferences() {
   var preferences = document.getElementById("preferencesTabs");
+
   if (preferences.style.display == "none") {
     preferences.style.display = "grid";
     document.getElementById("user").classList.add("bg-blue-700");

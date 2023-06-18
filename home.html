@@ -28,8 +28,8 @@
                     </button>
                 </div>
                 <br>
-                <div id="preferencesTabs" class="hidden float-right -mt-2 sm:text-2xl mdlg:text-3xl">
-                    <button onclick="switchPageTo('create/vocab')" class="bg-blue-700 text-white rounded-tl-md p-1 md:p-2 hover:underline hover:decoration-amber">Create set</button>
+                <div id="preferencesTabs" class="float-right -mt-2 sm:text-2xl mdlg:text-3xl" style="display:none;">
+                    <button onclick="switchPageTo('create/create')" class="bg-blue-700 text-white rounded-tl-md p-1 md:p-2 hover:underline hover:decoration-amber">Create set</button>
                     <button onclick="signOut()" class="bg-blue-800 text-white rounded-b-md p-1 md:p-2 hover:underline hover:decoration-amber">Sign out</button> 
                 </div>
             </div>
@@ -59,7 +59,7 @@
         </span>
 
         <div id="filter" class="bg-french-blue hidden w-11/12 md:w-1/2 md:mx-11 xl:mx-14 mx-auto px-2 md:px-4 md:py-2 rounded-md">
-            <div id="categories" class="inline-block my-1 -ml-1 md:mt-0"><div class="text-white text-lg md:text-2xl ml-1 font-bold">Filters:</div></div>
+            <div id="categories" class="inline-block my-1 -ml-1 md:mt-0 filterBar"><div class="text-white text-lg md:text-2xl ml-1 font-bold">Filters:</div></div>
             <div id="catFilter">
                 <input type="text" placeholder="Add category" name="category" id="category" class="w-3/4 md:w-1/2 md:text-lg xl:text-xl px-1 rounded-sm focus:rounded-b-none focus:outline-none">
                 <br>
@@ -91,22 +91,29 @@
 
         <div id="sets">
             <h1 class="text-white text-4xl underline decoration-amber underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2">My study sets</h1>
-
             <div class="bg-french-blue sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
                 <div id="my-sets" class="flex flex-nowrap overflow-x-scroll no-scrollbar"></div>
             </div>
 
             <h1 class="text-white text-4xl underline decoration-amber underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2"> Newest vocab sets </h1>
-
             <div class="bg-french-blue sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
                 <div id="vocab-sets" class="flex flex-nowrap overflow-x-scroll no-scrollbar"></div>
+            </div>
+
+            <h1 class="text-white text-4xl underline decoration-amber underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2"> Newest conjugation sets </h1>
+            <div class="bg-french-blue sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
+                <div id="conjugation-sets" class="flex flex-nowrap overflow-x-scroll no-scrollbar"></div>
             </div>
         </div>
 
         <div id="searchResults" class="hidden grid-cols-1 xsm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-auto p-2 my-4 no-scrollbar w-11/12 md:mx-11 xl:mx-14 rounded-md bg-french-blue"></div>
        
         <div id="noResults" class="hidden mx-auto bg-french-blue text-white text-center py-5 my-5 md:py-10 md:my-10 rounded-md w-11/12 md:w-3/4 font-semibold text-3xl md:text-5xl">No sets found.  Maybe you have a typo?</div>
-
-        <p> Icons from <a href="https://heroicons.com">heroicons.com</a></p>
+        <div class="w-full bg-french-blue">
+            <footer class="grid grid-cols-4 w-full text-sm md:text-md">
+                <p class="text-center mx-auto italic text-gray-300 p-2 col-span-2"> Icons from <a href="https://heroicons.com" class="underline">heroicons.com</a></p>
+                <p class="text-center mx-auto text-gray-300 p-2 col-span-2">Made by Absolutely No One</p>
+            </footer>   
+        </div>     
     </body>
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% min-h-full bg-fixed">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/tailwind.css">
+        <link rel="stylesheet" href="/scrollbar.css">
+
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
+        <script src="/index.js"></script>
+        <script src="/newset.js"></script>
+        <script src="categoryFilter.js"></script>
+    </head>
+    <body onload="detectInput('category', 'possibleCategories', 'categories', 'possibleCategories')">
+        <!-- header -->
+        <div class="m-2">  
+            <span class="inline-block">
+                <svg id="backArrow" onclick="switchPageToFolder('home')" class="w-8 h-8 xsm:w-10 xsm:h-10 md:w-11 md:h-11 text-amber hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg> 
+            </span>   
+            <h1 class="text-4xl xsm:text-5xl md:text-6xl mb-4 inline-block ml-2 text-center font-bold text-white underline underline-offset-8 decoration-amber">Create set</h1>
+        </div>
+
+        <div class="w-11/12 sm:w-3/4 sm:mx-12 sm:px-2 md:px-4 mx-auto">
+        <input id="title" class="outline-none rounded-md px-2 text-2xl w-full md:w-3/4 mb-2" type="textfield" placeholder="Set name" required/>
+
+        <div id="setType" class="bg-french-blue text-white p-1 px-2 text-xl md:text-2xl rounded-md mb-2 md:w-1/2">
+            <div> Set type </div>
+            <div class="text-center my-1">
+                <div onclick="changeType('vocab')" class="bg-amber rounded-md hover:cursor-pointer" id="setType-vocab">Vocab</div>
+                <div onclick="changeType('conjugation')" class="rounded-md hover:cursor-pointer" id="setType-conjugation">Verbs</div>
+            </div>
+        </div>
+
+        <div onclick="addTerm()" class="hover:cursor-pointer">
+            <span class="mb-2 text-xl md:text-2xl bg-french-blue rounded-md p-1 px-2 text-white">
+                <div class="inline-block">New term</div>
+                <!-- icon from heroicons.com -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="-mt-[3px] w-5 h-5 inline-block">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>  
+            </span>            
+        </div>
+        <div id="terms" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"></div>
+        <div id="catContainer" class="bg-french-blue/70 rounded-md p-2 my-2 w-full md:w-3/4">
+            <div class="bg-french-blue rounded-md text-white py-1 px-2 inline-block text-lg sm:text-xl md:text-2xl">Categories:</div>
+            <div id="categories" class="bg-french-blue -mt-1 mb-4 rounded-md rounded-tl-none md:w-3/4"></div>
+            <div id="catFilter">
+                <input type="text" placeholder="Add category" name="category" id="category" class="outline-none rounded-md px-2 text-xl w-full md:w-1/2 mt-1">
+                <h1 class="h-1/12 md:w-3/4">
+                    <div id="possibleCategories" class="bg-french-blue p-1 mt-2 rounded-md max-w-max max-h-20 overflow-y-scroll no-scrollbar hidden">
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Animals</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Advanced</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Beginner</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Body</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Classroom</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Countries</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Food</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Geography</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Health</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">House</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Intermediate</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Introductions</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Music</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">School</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Sports</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Transportation</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Travel</div>
+                        <div class="bg-dark-amber text-white text-sm font-semibold md:text-lg rounded-sm px-1 py-0.5 m-1">Work</div>
+                    </div>
+                </h1>
+            </div>
+        </div>
+        <button id="create" class="text-white bg-french-blue hover:underline decoration-amber py-2 px-3 font-semibold rounded-md text-xl sm:text-2xl md:text-3xl" onclick="createSet(setType)">Publish set</button>
+        </div>
+    </body>
+</html>

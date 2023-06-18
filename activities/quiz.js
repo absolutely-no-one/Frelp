@@ -3,7 +3,7 @@ const urlSearch = new URLSearchParams(url);
 const id = urlSearch.get("id");
 const type = urlSearch.get("type");
 
-var terms = 0;
+var termNum = 0;
 var setData = [];
 var setData2 = [];
 var questions = [];
@@ -15,15 +15,23 @@ var correct = 0;
 var quizType = "multipleChoice";
 var questionLang = "french";
 
-function getMaxQs() {
+function setQuizOptions() {
     const data = firebase.database().ref("/sets/" + type + "/" + id);
+    var input = document.getElementById("questions");
+
+    if (type == "conjugation") {
+        document.getElementById("language").style.display = "none";
+    }
+
     data.once('value').then((snapshot) => {
-        terms = snapshot.val().totalterms;
         setData = snapshot.val().terms;
-        var input = document.getElementById("questions");
-        input.max = terms;
-        input.value = terms;
-        input.setAttribute("id", "questions");
+        termNum = snapshot.val().totalterms;
+        input.max = termNum;
+        input.value = termNum;
+        if (type == "conjugation") {
+            input.max = termNum * 7;
+            input.value = termNum * 7;
+        }
     })
 }
 
@@ -34,33 +42,108 @@ function generateQuiz() {
     quizType = document.querySelector("input[type='radio'][name=quizType]:checked").value;
     numQuestions = document.getElementById("questions").value;
     questionLang = document.querySelector("input[type='radio'][name='quizLang']:checked").value;
+    if (type == "vocab") {
+        setData = setData.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => [val.term, val.definition]);
 
-    setData = setData.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => [val.term, val.definition]);
+        for (var i = 0; i < numQuestions; i++) {
+            random = Math.random();
 
-    for (var i = 0; i < numQuestions; i++) {
-        random = Math.random();
-
-        setData2 = [...setData];
-        setData2.splice(i,1);
-        setData2 = setData2.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => [val[0], val[1]]);
-        questions[i] = [setData[i]];
-        if ((random > 0.5 || questionLang == "english") && questionLang != "french") {
-            questions[i] = [[questions[i][0][1], questions[i][0][0]]];
-        }
-        tempData = Array.from(setData2);
-        tempData.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => {
+            setData2 = JSON.parse(JSON.stringify(setData));
+            setData2.splice(i,1);
+            setData2 = setData2.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => [val[0], val[1]]);
+            questions[i] = [setData[i]];
             if ((random > 0.5 || questionLang == "english") && questionLang != "french") {
-                temp = val[0];
-                val[0] = val[1];
-                val[1] = temp;
-            } else {
-                val = [val[0], val[1]];
+                questions[i] = [[questions[i][0][1], questions[i][0][0]]];
             }
-        });
+            tempData = Array.from(setData2);
+            tempData.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => {
+                if ((random > 0.5 || questionLang == "english") && questionLang != "french") {
+                    temp = val[0];
+                    val[0] = val[1];
+                    val[1] = temp;
+                } else {
+                    val = [val[0], val[1]];
+                }
+            });
 
-        if (quizType == "multipleChoice") {
-            for (var j = 0; j < 3; j++) {
-                questions[i].push(tempData[j]);
+            if (quizType == "multipleChoice") {
+                for (var j = 0; j < 3; j++) {
+                    questions[i].push(tempData[j]);
+                }
+            }
+        }
+    } else if (type == "conjugation") {
+        setData2 = JSON.parse(JSON.stringify(setData));
+        for (var i = 0; i < numQuestions; i++) {
+            tempSetData = JSON.parse(JSON.stringify(setData));
+            randPronoun = 0;
+
+            var row = i % tempSetData.length;
+            var randomSecondIndex = Math.floor(Math.random() * setData2[row].length);
+
+            // choose between 1 pronoun instead of displaying he/she/one and requiring user to type translation of all 3
+            if (setData2[row][randomSecondIndex][1].indexOf("He/she/one") > -1) {
+                randPronoun = Math.floor(Math.random() * 3);
+                if (randPronoun == 0) {
+                    pronoun = "He";
+                    pronoun2 = "Il";
+                } else if (randPronoun == 1) {
+                    pronoun = "She";
+                    pronoun2 = "Elle";
+                } else {
+                    pronoun = "One";
+                    pronoun2 = "On"
+                }
+                setData2[row][randomSecondIndex][1] = pronoun + setData2[row][randomSecondIndex][1].substring(10);
+                setData2[row][randomSecondIndex][0] = pronoun2 + setData2[row][randomSecondIndex][0].substring(setData2[row][randomSecondIndex][0].indexOf(" "));
+
+            } else if (setData2[row][randomSecondIndex][1].indexOf("They") > -1 && quizType == "written") {
+                randPronoun = Math.floor(Math.random() * 2);
+                if (randPronoun == 0) {
+                    pronoun = "They (elles)";
+                    pronoun2 = "Elles";
+                } else if (randPronoun == 1) {
+                    pronoun = "Theys (ils)";
+                    pronoun2 = "Ils";
+                }
+                setData2[row][randomSecondIndex][1] = pronoun + setData2[row][randomSecondIndex][1].substring(4);
+                setData2[row][randomSecondIndex][0] = pronoun2 + setData2[row][randomSecondIndex][0].substring(setData2[row][randomSecondIndex][0].indexOf(" "));
+            }
+
+            if (quizType == "multipleChoice") {
+                setData2[row][randomSecondIndex][0] = setData2[row][randomSecondIndex][0].indexOf(" ") > -1 ? setData2[row][randomSecondIndex][0].substring(setData2[row][randomSecondIndex][0].indexOf(" ") + 1) : setData2[row][randomSecondIndex][0];
+                setData2[row][randomSecondIndex][0] = setData2[row][randomSecondIndex][0].indexOf("J'") > -1 ? setData2[row][randomSecondIndex][0].substring(setData2[row][randomSecondIndex][0].indexOf("J'") + 2) : setData2[row][randomSecondIndex][0];
+            }
+
+            questions[i] = [[setData2[row][randomSecondIndex][1], setData2[row][randomSecondIndex][0]]];
+            setData2[row].splice(randomSecondIndex, 1);
+
+            tempSetData[row].splice(randomSecondIndex, 1);
+            tempSetData[row] = tempSetData[row].map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort - b.sort).map(({val}) => [val[1], val[0]]);
+
+            // add other answers, removing the duplicates
+            if (quizType == "multipleChoice") {
+                for (var j = 0; j < 3; j++) {
+                    if (tempSetData[row][j][1].indexOf("J'") > -1) {
+                        tempSetData[row][j][1] = tempSetData[row][j][1].indexOf("J'") > -1 ? tempSetData[row][j][1].substring(tempSetData[row][j][1].indexOf("J'") + 2) : tempSetData[row][j][1];
+                    } else {
+                        tempSetData[row][j][1] = tempSetData[row][j][1].indexOf(" ") > -1 ? tempSetData[row][j][1].substring(tempSetData[row][j][1].indexOf(" ") + 1) : tempSetData[row][j][1];
+                    }
+                    
+                    for (var k = 0; k < questions[i].length; k++) {
+                        if (questions[i][k].includes(tempSetData[row][j][1])) {
+                            tempSetData[row].splice(j, 1);
+                        }
+                    }
+
+                    if (tempSetData[row][j][1].indexOf("J'") > -1) {
+                        tempSetData[row][j][1] = tempSetData[row][j][1].indexOf("J'") > -1 ? tempSetData[row][j][1].substring(tempSetData[row][j][1].indexOf("J'") + 2) : tempSetData[row][j][1];
+                    } else {
+                        tempSetData[row][j][1] = tempSetData[row][j][1].indexOf(" ") > -1 ? tempSetData[row][j][1].substring(tempSetData[row][j][1].indexOf(" ") + 1) : tempSetData[row][j][1];
+                    }
+
+                    questions[i].push(tempSetData[i % tempSetData.length][j]);
+                }
             }
         }
     }
