@@ -48,7 +48,7 @@ function createFlashcard() {
     container.appendChild(term);
     container.appendChild(definition);
     container.appendChild(note);
-    container.addEventListener("click", function () {
+    card.addEventListener("click", function () {
         if (term.style.display != "none") {
             term.style.display = "none";
             definition.style.display = "block";

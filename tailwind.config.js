@@ -16,6 +16,9 @@ module.exports = {
         "french-blue": "#002654",
         "amber": "#FFBE0B",
         "dark-amber": "#BF8E08"
+      },
+      boxShadow: {
+        "2-amber": "0px 0px 0px 2px #FFBE0B"
       }
     },
     screens: {
