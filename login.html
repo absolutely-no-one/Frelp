@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="bg-gradient-to-br from-blue-900/90 from-50% to-red-900/90 to-50% min-h-full">
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,11 @@
         <script src="./index.js"></script>
         <script src="./login.js"></script>
     </head>
-    <body class="py-2 sm:w-1/2 lg:w-5/12 mx-auto">
+    <body>
+        <!-- bg not done in html tag because of bug with bg-attachment fixed -->
+        <div class="bg-gradient-to-bl from-blue-900/90 from-50% to-red-900/90 to-50% fixed bg-no-repeat bg-center w-screen h-screen -z-[1]"></div>
+
+        <div class="py-2 sm:w-1/2 lg:w-5/12 mx-auto">
         <h1 class="text-white mx-auto text-center text-5xl md:text-6xl font-bold pb-4 decoration-amber underline"> Login </h1>
         <form onsubmit="return false" class="bg-gray-200 w-11/12 p-4 mx-auto rounded-lg shadow-md">
             <div class="mb-2">
@@ -32,5 +36,6 @@
         <p class="text-white text-3xl p-2 text-center font-bold"> OR </p>
         <div onclick="loginWithGoogle()" class="text-2xl md:text-3xl lg:text-4xl py-1 px-8 font-bold text-center w-11/12 mx-auto hover:cursor-pointer decoration-amber border-gray-200 hover:underline hover:opacity-90 text-white border-2 rounded-md bg-french-blue shadow-md">Login with google</div>
         <div onclick="switchPageTo('index')" class="text-2xl md:text-3xl py-1 px-4 font-bold text-center w-1/2 mx-auto mt-2 hover:cursor-pointer decoration-amber border-gray-200 hover:underline hover:opacity-90 text-white border-2 rounded-md bg-french-blue shadow-md">Home</div>
+        </div>
     </body>
 </html>

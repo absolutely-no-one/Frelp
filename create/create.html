@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% min-h-full bg-fixed">
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +15,9 @@
         <script src="./categoryFilter.js"></script>
     </head>
     <body onload="detectInput('category', 'possibleCategories', 'categories', 'possibleCategories')">
+        <!-- bg not done in html tag because of bug with bg-attachment fixed -->
+        <div class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% fixed bg-no-repeat bg-center w-screen h-screen -z-[1]"></div>
+        
         <!-- header -->
         <div class="m-2">  
             <span class="inline-block">
