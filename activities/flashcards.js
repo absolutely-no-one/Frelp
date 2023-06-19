@@ -8,15 +8,18 @@ var term, definition, note, container, card;
 var currentCard = 0;
 
 function generateCards() {
-    const data = firebase.database().ref("/sets/" + type + "/" + id + "/terms");
+    const data = firebase.database().ref("/sets/" + type + "/" + id);
     card = document.getElementById("card");
-    data.once('value').then((snapshot) => {
-        snapshot.forEach((childSnapshot) => {
+
+    data.once("value").then((snapshot) => {
+        document.getElementById("setName").innerHTML = snapshot.val().name;
+        document.getElementById("setAuthor").innerHTML = "By " + snapshot.val().author;
+        snapshot.val().terms.forEach((childSnapshot) => {
             if (type == "vocab") {
-                setData.push(childSnapshot.val());
+                setData.push(childSnapshot);
             } else if (type == "conjugation") {
-                for (var i = 0; i < childSnapshot.val().length; i++) {
-                    setData.push(childSnapshot.val()[i]);
+                for (var i = 0; i < childSnapshot.length - 1; i++) {
+                    setData.push(childSnapshot[i]);
                 }
             }
         })
@@ -39,6 +42,7 @@ function createFlashcard() {
     note = document.createElement("div");
     note.setAttribute("id", "note");
     note.innerHTML = type == "vocab" ? setData[0].note : "";
+    note.style.display = "none";
 
     container = document.createElement("div");
     container.appendChild(term);

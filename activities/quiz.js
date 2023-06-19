@@ -76,6 +76,9 @@ function generateQuiz() {
         setData2 = JSON.parse(JSON.stringify(setData));
         for (var i = 0; i < numQuestions; i++) {
             tempSetData = JSON.parse(JSON.stringify(setData));
+            tense = setData2[i % tempSetData.length][7] != null ? setData2[i % tempSetData.length].splice(7,1) : tense;
+            tempSetData[i % tempSetData.length].splice(7);
+
             randPronoun = 0;
 
             var row = i % tempSetData.length;
@@ -114,6 +117,7 @@ function generateQuiz() {
                 setData2[row][randomSecondIndex][0] = setData2[row][randomSecondIndex][0].indexOf(" ") > -1 ? setData2[row][randomSecondIndex][0].substring(setData2[row][randomSecondIndex][0].indexOf(" ") + 1) : setData2[row][randomSecondIndex][0];
                 setData2[row][randomSecondIndex][0] = setData2[row][randomSecondIndex][0].indexOf("J'") > -1 ? setData2[row][randomSecondIndex][0].substring(setData2[row][randomSecondIndex][0].indexOf("J'") + 2) : setData2[row][randomSecondIndex][0];
             }
+            setData2[row][randomSecondIndex][1] += " " + tense;
 
             questions[i] = [[setData2[row][randomSecondIndex][1], setData2[row][randomSecondIndex][0]]];
             setData2[row].splice(randomSecondIndex, 1);

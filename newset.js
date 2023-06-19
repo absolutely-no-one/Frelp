@@ -211,12 +211,27 @@ function addTerm() {
             passeCompose.innerHTML = "Passé composé";
 
             var imparfait = document.createElement("option");
-            imparfait.setAttribute("value", "Passé composé");
-            imparfait.innerHTML = "Passé composé";
+            imparfait.setAttribute("value", "Imparfait");
+            imparfait.innerHTML = "Imparfait";
+
+            var futurSimple = document.createElement("option");
+            futurSimple.setAttribute("value", "Futur simple");
+            futurSimple.innerHTML = "Futur simple";
+
+            var subjonctif = document.createElement("option");
+            subjonctif.setAttribute("value", "Subjonctif");
+            subjonctif.innerHTML = "Subjonctif";
+
+            var conditionnel = document.createElement("option");
+            conditionnel.setAttribute("value", "Conditionnel");
+            conditionnel.innerHTML = "Conditionnel";
 
             tenseSelector.appendChild(present);
             tenseSelector.appendChild(passeCompose);
             tenseSelector.appendChild(imparfait);
+            tenseSelector.appendChild(futurSimple);
+            tenseSelector.appendChild(subjonctif);
+            tenseSelector.appendChild(conditionnel);
 
             var delContainer = document.createElement("div");
             delContainer.setAttribute("class", "relative text-3xl mr-0 ml-auto px-1 -mb-8 max-w-min max-h-min shadow-lg rounded-full bg-amber/70");
@@ -346,6 +361,7 @@ function createSet(type) {
             }
             term[j/2 + 1] = [verbForms[j] + element.children[i].children[3].children[j].children[1].value.trim(), verbForms[j + 1] + element.children[i].children[3].children[j + 1].children[1].value.trim()];
         }
+        term[7] = element.children[i].children[4].value;
         terms.push(term);      
         count++;
     }

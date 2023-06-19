@@ -82,7 +82,7 @@ function getData() {
 
                 var formContainer = document.createElement("div");
 
-                for (var i = 1; i < element.length; i++) {
+                for (var i = 1; i < element.length - 1; i++) {
                     var formSubcontainer = document.createElement("div");
                     formSubcontainer.setAttribute("class", "grid grid-cols-2 divide-x-2 divide-dark-amber border-b-[2px] border-dark-amber my-2");
 
