@@ -21,9 +21,7 @@ function loadMySets() {
         if (currentUser) {
           user2 = currentUser;
           data = firebase.database().ref("/users/" + user2.uid);
-          data.child("username").once("value").then((snapshot) => {
-            document.getElementById("welcome-name").innerHTML = snapshot.val();
-          })
+          document.getElementById("welcome-name").innerHTML = currentUser.displayName;
           data.child("sets").once("value").then((snapshot) => {
             snapshot.forEach((childSnapshot) => {
               var container = document.createElement("div");

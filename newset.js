@@ -311,15 +311,12 @@ function createSet(type) {
 
         var newSet = firebase.database().ref("sets/vocab").push();
         var newSetKey = newSet.key;
-        var username = firebase.database().ref("users/" + user.uid + "/username");
-        username.once("value").then((snapshot) => {
-            newSet.set({
-                "name": name,
-                "author": snapshot.val(),
-                "terms": terms,
-                "totalterms": count,
-                "categories": categories
-            })
+        newSet.set({
+            "name": name,
+            "author": user.displayName,
+            "terms": terms,
+            "totalterms": count,
+            "categories": categories
         })
         var userSets = firebase.database().ref("users/" + user.uid + "/sets");
         userSets.update({
@@ -368,15 +365,12 @@ function createSet(type) {
 
     var newSet = firebase.database().ref("sets/conjugation").push();
     var newSetKey = newSet.key;
-    var username = firebase.database().ref("users/" + user.uid + "/username");
-    username.once("value").then((snapshot) => {
-        newSet.set({
-            "name": name,
-            "author": snapshot.val(),
-            "terms": terms,
-            "totalterms": count,
-            "categories": categories
-        })
+    newSet.set({
+        "name": name,
+        "author": user.displayName,
+        "terms": terms,
+        "totalterms": count,
+        "categories": categories
     })
     var userSets = firebase.database().ref("users/" + user.uid + "/sets");
     userSets.update({
@@ -403,7 +397,7 @@ function changeType(type) {
             }
         }
     }
-    document.getElementById("setType-" + setType).classList.remove("bg-amber");
+    document.getElementById("setType-" + setType).classList.remove("bg-deep-red");
     setType = type;
-    document.getElementById("setType-" + type).classList.add("bg-amber");
+    document.getElementById("setType-" + type).classList.add("bg-deep-red");
 }
