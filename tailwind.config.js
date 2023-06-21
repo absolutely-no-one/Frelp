@@ -13,7 +13,9 @@ module.exports = {
     extend: {
       colors: {
         "french-red": "#ED2939",
+        "burnt-orange": "#BA4A00",
         "french-blue": "#002654",
+        "button-blue": "#003D87",
         "amber": "#FFBE0B",
         "dark-amber": "#BF8E08"
       },
