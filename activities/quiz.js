@@ -24,8 +24,11 @@ function setQuizOptions() {
     }
 
     data.once('value').then((snapshot) => {
-        setData = snapshot.val().terms;
-        termNum = snapshot.val().totalterms;
+        var val = snapshot.val()
+        setData = val.terms;
+        termNum = val.totalterms;
+        document.getElementById("setName").innerHTML = val.name;
+        document.getElementById("setAuthor").innerHTML = val.author;
         input.max = termNum;
         input.value = termNum;
         if (type == "conjugation") {
@@ -41,6 +44,10 @@ function generateQuiz() {
     // quiz parameters
     quizType = document.querySelector("input[type='radio'][name=quizType]:checked").value;
     numQuestions = document.getElementById("questions").value;
+    if (numQuestions > document.getElementById("questions").max) {
+        alert("Too many questions")
+        return;
+    }
     questionLang = document.querySelector("input[type='radio'][name='quizLang']:checked").value;
     if (type == "vocab") {
         setData = setData.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => [val.term, val.definition]);
