@@ -16,7 +16,7 @@
         <script src="./create/categoryFilter.js"></script>
 
     </head>
-    <body>
+    <body class="flex min-h-screen flex-col">
         <!-- bg not done in html tag because of bug with bg-attachment fixed -->
         <div class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% fixed bg-no-repeat bg-center w-screen h-screen -z-[1]"></div>
 
@@ -112,11 +112,10 @@
         <div id="searchResults" class="hidden grid-cols-1 xsm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-auto p-2 my-4 no-scrollbar w-11/12 md:mx-11 xl:mx-14 rounded-md bg-french-blue"></div>
        
         <div id="noResults" class="hidden mx-auto bg-french-blue text-white text-center py-5 my-5 md:py-10 md:my-10 rounded-md w-11/12 md:w-3/4 font-semibold text-3xl md:text-5xl">No sets found.  Maybe you have a typo?</div>
-        <div class="w-full bg-french-blue">
-            <footer class="grid grid-cols-4 w-full text-sm md:text-md">
-                <p class="text-center mx-auto italic text-gray-300 p-2 col-span-2"> Icons from <a href="https://heroicons.com" class="underline">heroicons.com</a></p>
-                <p class="text-center mx-auto text-gray-300 p-2 col-span-2">Made by Absolutely No One</p>
-            </footer>   
-        </div>     
+    <div class="flex-auto"></div>
+        <footer class="grid grid-cols-4 text-sm md:text-md w-full bg-french-blue">
+            <p class="text-center mx-auto italic text-gray-300 p-2 col-span-2"> Icons from <a href="https://heroicons.com" class="underline">heroicons.com</a></p>
+            <p class="text-center mx-auto text-gray-300 p-2 col-span-2">Made by Absolutely No One</p>
+        </footer>   
     </body>
 </html>
