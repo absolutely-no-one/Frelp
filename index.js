@@ -17,15 +17,14 @@ var databaseUsers = firebase.database().ref("users");
 
 firebase.auth().onAuthStateChanged((currentUser) => {
   if (currentUser) {
-  if (databaseUsers.child(currentUser.uid).child("username") == null && currentUser.uid != null) {
-    databaseUsers.child(currentUser.uid).set({
-      "username": currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@")),
-    });
-  }
+    // may change to display name associated with account
+    if (currentUser.displayName != currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@"))) {
+      currentUser.updateProfile({
+        displayName: currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@"))
+      })
+    }
 
     user = currentUser;
-    console.log("signed in");
-    console.log(user);
     if (window.location.href.indexOf("index.html") > -1 || window.location.href.indexOf("login.html") > -1) {
       switchPageTo("home");
     }
@@ -114,6 +113,14 @@ function playGame(game) {
 
 function goBackFromGame() {
   window.location.href = "../playset.html?id=" + id + "&type=" + type;
+}
+
+function isKeyNumber(event) {
+  var char = (event.which) ? event.which : event.keyCode;
+  if (char > 31 && (char < 48 || char > 57)) {
+    return false;
+  }
+  return true;
 }
 
 function signedIn() {
