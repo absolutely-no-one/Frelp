@@ -7,6 +7,7 @@ var termNum = 0;
 var setData = [];
 var setData2 = [];
 var questions = [];
+var onAnsweredScreen = false;
 
 var numQuestions;
 var currentQuestion = 0;
@@ -162,32 +163,39 @@ function generateQuiz() {
     console.log(questions);
 
     document.getElementById("completion").innerHTML = "1/" + numQuestions;
+
     // create container for questions
     var container = document.createElement("div");
     var question = document.createElement("div");
-    question.setAttribute("id", "question")
+    question.setAttribute("id", "question");
     question.innerHTML = questions[currentQuestion][0][0];
+    question.setAttribute("class", "text-center text-2xl font-semibold md:text-3xl my-3 mx-4 bg-burnt-orange rounded-full");
+
     var answers = document.createElement("div");
 
     if (quizType == "multipleChoice") {
+        answers.setAttribute("class", "grid grid-cols-2 text-center m-1 pb-1");
         var start = Math.floor(Math.random() * 4);
         for (var i = start; i < start + 4; i++) {
             var ans = document.createElement("div");
             var offset = i > 3 ? Math.abs(4 - i) : i;
             ans.innerHTML = questions[currentQuestion][offset][1];
             ans.setAttribute("id", "answer" + offset);
+            ans.setAttribute("class", "bg-burnt-orange m-1 md:m-2 py-1 rounded-md hover:bg-burnt-orange/80 hover:cursor-pointer text-xl md:text-2xl");
             ans.addEventListener("click", function () {
-                answerQuestion(this.innerHTML);
+                answerQuestion(this);
             })
             answers.appendChild(ans);
         }
     } else if (quizType == "written") {
+        answers.setAttribute("class", "pb-3 mx-auto text-center");
         var input = document.createElement("input");
         input.type = "text";
         input.setAttribute("id", "input");
+        input.setAttribute("class", "text-2xl text-center w-11/12 rounded-md bg-button-blue");
         input.addEventListener("keyup", function (e) {
             if (e.key == "Enter") {
-                answerQuestion(this.value);
+                answerQuestion(this);
             }
         })
         answers.appendChild(input);
@@ -195,17 +203,51 @@ function generateQuiz() {
 
     container.appendChild(question);
     container.appendChild(answers);
-    container.appendChild(document.createElement("hr"))
     document.getElementById("quiz").appendChild(container);
+    document.getElementById("quiz").style.display = "block";
 }
 
-function answerQuestion(content) {
-    if (content.toUpperCase() == questions[currentQuestion][0][1].toUpperCase()) {
-        alert("right o daddio");
-        correct++;
-    } else {
-        alert("no you imbecile");
+function answerQuestion(selected) {
+    var content = (quizType == "multipleChoice") ? selected.innerHTML : selected.value;
+    if (!onAnsweredScreen) {
+        onAnsweredScreen = true;
+        if (content.toUpperCase() == questions[currentQuestion][0][1].toUpperCase()) {
+            selected.classList.add("bg-green-700");
+            correct++;
+        } else {
+            selected.classList.add("bg-french-red");
+            if (quizType == "multipleChoice") {
+                for (var i = 0; i < 4; i++) {
+                    if (document.getElementById("answer" + i).innerHTML.toUpperCase() == questions[currentQuestion][0][1].toUpperCase()) {
+                        document.getElementById("answer" + i).classList.add("bg-green-700");
+                        break;
+                    }
+                }
+            }
+        }
+        if (quizType == "multipleChoice") {
+            for (var i = 0; i < 4; i++) {
+                document.getElementById("answer" + i).classList.remove("hover:bg-burnt-orange/80", "hover:cursor-pointer");
+            }
+        }
+        var next = document.createElement("div");
+        next.innerHTML = "Next";
+        next.setAttribute("id", "next");
+        next.setAttribute("class", "bg-button-blue mx-auto text-center w-1/2 md:w-1/3 rounded-full text-2xl md:text-3xl font-semibold -mt-1 hover:cursor-pointer");
+        next.addEventListener('click', function () {
+            nextQuestion(selected);
+        })
+
+        if (quizType == "written") {
+            next.classList.add("md:mt-1");
+        }
+
+        document.getElementById("quiz").classList.add("pb-2", "md:pb-3");
+        document.getElementById("quiz").appendChild(next);
     }
+}
+
+function nextQuestion(element) {
     answered++;
     currentQuestion ++;
     if (currentQuestion == numQuestions) {
@@ -222,4 +264,16 @@ function answerQuestion(content) {
             document.getElementById("input").value = "";
         }
     }
+    document.getElementById("quiz").classList.remove("pb-2", "md:pb-3");
+
+    element.classList.remove("bg-green-700");
+    element.classList.remove("bg-french-red");
+    if (quizType == "multipleChoice") {
+        for (var i = 0; i < 4; i++) {
+            document.getElementById("answer" + i).classList.add("hover:bg-burnt-orange/80", "hover:cursor-pointer");
+            document.getElementById("answer" + i).classList.remove("bg-green-700");
+        }
+    }
+    document.getElementById("next").remove();
+    onAnsweredScreen = false;
 }
