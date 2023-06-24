@@ -23,6 +23,23 @@ function loadMySets() {
           data = firebase.database().ref("/users/" + user2.uid);
           document.getElementById("welcome-name").innerHTML = currentUser.displayName;
           data.child("sets").once("value").then((snapshot) => {
+            if (!snapshot.val()){
+              var noSetContainer = document.createElement("div");
+              noSetContainer.setAttribute("class", "text-white text-xl md:text-3xl text-center mx-auto font-semibold");
+
+              var noSets = document.createElement("span");
+              noSets.innerHTML = "You haven't created any sets yet!  ";
+
+              var makeSetQ = document.createElement("a");
+              makeSetQ.href = "./create/create.html";
+              makeSetQ.innerHTML = "Create one now?";
+              makeSetQ.setAttribute("class", "underline decoration-amber");
+
+              noSetContainer.appendChild(noSets);
+              noSetContainer.appendChild(makeSetQ);
+
+              mysets.appendChild(noSetContainer)
+            } else {
             snapshot.forEach((childSnapshot) => {
               var container = document.createElement("div");
               container.setAttribute("class", "bg-gray-200 ml-0 mr-8 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none hover:cursor-pointer");
@@ -56,6 +73,7 @@ function loadMySets() {
               container.appendChild(type);
               mysets.appendChild(container);
             })
+          }
           })
 
           newSetData = firebase.database().ref("/sets/");

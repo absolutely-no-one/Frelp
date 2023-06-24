@@ -10,7 +10,7 @@ function addTerm() {
     container.setAttribute("class", "mt-2 mr-2 text-white text-xl md:text-2xl bg-french-blue rounded-md p-2 relative grid grid-cols-1 col-span-1");
 
     var delContainer = document.createElement("div");
-    delContainer.setAttribute("class", "relative text-3xl mr-0 ml-auto px-1 -mb-8 max-w-min max-h-min shadow-lg rounded-full bg-amber/70");
+    delContainer.setAttribute("class", "relative text-3xl mr-0 ml-auto px-1 -mb-8 max-w-min max-h-min shadow-lg rounded-full bg-burnt-orange");
     delContainer.addEventListener("click", function () {
         this.parentElement.remove();
     })
@@ -274,8 +274,12 @@ function createSet(type) {
         return;
     }
         // Ensure terms actually exist
-    if (element.children.length < 1) {
-        alert("Add terms, silly!");
+    if (element.children.length < 5) {
+        if (element.children.length == 0) {
+            alert("Little cabbage, terms must be added.!");
+        } else {
+            alert("5 terms are needed to create a set");
+        }
         return;
     }
 
@@ -397,7 +401,7 @@ function changeType(type) {
             }
         }
     }
-    document.getElementById("setType-" + setType).classList.remove("bg-deep-red");
+    document.getElementById("setType-" + setType).classList.remove("bg-burnt-orange");
     setType = type;
-    document.getElementById("setType-" + type).classList.add("bg-deep-red");
+    document.getElementById("setType-" + type).classList.add("bg-burnt-orange");
 }
