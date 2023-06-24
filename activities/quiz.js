@@ -40,15 +40,18 @@ function setQuizOptions() {
 }
 
 function generateQuiz() {
-    document.getElementById("setup").style.display = "none";
-
     // quiz parameters
     quizType = document.querySelector("input[type='radio'][name=quizType]:checked").value;
     numQuestions = document.getElementById("questions").value;
-    if (numQuestions > document.getElementById("questions").max) {
-        alert("Too many questions")
+    if (numQuestions < 1) {
+        alert("You need questions, silly!");
+        return;
+    } else if (numQuestions > Number(document.getElementById("questions").max)) {
+        alert("Too many questions, max is: " + document.getElementById("questions").max);
         return;
     }
+
+    document.getElementById("setup").style.display = "none";
     questionLang = document.querySelector("input[type='radio'][name='quizLang']:checked").value;
     if (type == "vocab") {
         setData = setData.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => [val.term, val.definition]);
@@ -158,6 +161,7 @@ function generateQuiz() {
                 }
             }
         }
+       questions = questions.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => val);
     }
 
     console.log(questions);
@@ -208,11 +212,15 @@ function generateQuiz() {
 }
 
 function answerQuestion(selected) {
-    var content = (quizType == "multipleChoice") ? selected.innerHTML : selected.value;
+    var content = (quizType == "multipleChoice") ? selected.innerHTML : selected.value.trim();
+    selected.readOnly = true;
     if (!onAnsweredScreen) {
         onAnsweredScreen = true;
         if (content.toUpperCase() == questions[currentQuestion][0][1].toUpperCase()) {
             selected.classList.add("bg-green-700");
+            if (quizType == "written") {
+                selected.classList.remove("bg-button-blue");
+            }
             correct++;
         } else {
             selected.classList.add("bg-french-red");
@@ -223,6 +231,23 @@ function answerQuestion(selected) {
                         break;
                     }
                 }
+            } else if (quizType == "written") {
+                var correctAns = document.createElement("div");
+                correctAns.innerHTML = "Answer: " + questions[currentQuestion][0][1];
+                correctAns.setAttribute("id", "correctAns");
+                correctAns.setAttribute("class", "bg-green-700 font-semibold mx-auto rounded-md text-center mb-2 w-11/12 xl:w-1/2 text-xl md:text-2xl");
+                document.getElementById("quiz").appendChild(correctAns);
+
+                var manualOverride = document.createElement("div");
+                manualOverride.innerHTML = "I was right, override";
+                manualOverride.setAttribute("id", "manOv");
+                manualOverride.setAttribute("class", "bg-button-blue mt-3 text-xl md:text-2xl w-11/12 xl:w-7/12 text-center mx-auto rounded-full hover:cursor-pointer");
+                manualOverride.addEventListener("click", function() {
+                    correct++;
+                    nextQuestion(selected);
+                    document.getElementById("correctAns").remove();
+                    document.getElementById("manOv").remove();
+                });
             }
         }
         if (quizType == "multipleChoice") {
@@ -230,20 +255,26 @@ function answerQuestion(selected) {
                 document.getElementById("answer" + i).classList.remove("hover:bg-burnt-orange/80", "hover:cursor-pointer");
             }
         }
+
         var next = document.createElement("div");
         next.innerHTML = "Next";
         next.setAttribute("id", "next");
         next.setAttribute("class", "bg-button-blue mx-auto text-center w-1/2 md:w-1/3 rounded-full text-2xl md:text-3xl font-semibold -mt-1 hover:cursor-pointer");
-        next.addEventListener('click', function () {
+        next.addEventListener("click", function () {
             nextQuestion(selected);
+            if (quizType == "written") {
+                document.getElementById("correctAns").remove();
+                document.getElementById("manOv").remove();
+            }
         })
-
-        if (quizType == "written") {
-            next.classList.add("md:mt-1");
-        }
 
         document.getElementById("quiz").classList.add("pb-2", "md:pb-3");
         document.getElementById("quiz").appendChild(next);
+
+        if (quizType == "written") {
+            next.classList.add("md:mt-1");
+            document.getElementById("quiz").appendChild(manualOverride);
+        }
     }
 }
 
@@ -251,17 +282,57 @@ function nextQuestion(element) {
     answered++;
     currentQuestion ++;
     if (currentQuestion == numQuestions) {
-        alert("you got " + correct + " out of " + answered + " correct");
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("quizResults").style.display = "block";
+
+        var score = Math.round((correct / answered) * 100);
+        var percent = document.createElement("div");
+        percent.innerHTML = score + "%";
+        percent.setAttribute("class", "mx-auto text-center text-5xl xl:text-6xl font-bold");
+
+        var comment = document.createElement("div");
+        if (score < 50) {
+            comment.innerHTML = "Still a long way to go";
+        } else if (score < 70) {
+            comment.innerHTML = "Not too shabby";
+        } else if (score < 80) {
+            comment.innnerHTML = "Pretty good";
+        } else if (score < 90) {
+            comment.innerHTML = "Nice job!";
+        } else if (score < 95) {
+            comment.innerHTML = "Super!";
+        } else if (score < 100) { 
+            comment.innerHTML = "Amazing!";
+        } else {
+            comment.innerHTML = "Aced it!";
+        }
+        comment.setAttribute("class", "mx-auto text-center text-2xl md:text-3xl xl:text-4xl font-semibold");
+
+        var backToSet = document.createElement("div");
+        backToSet.innerHTML = "Go back to set";
+        backToSet.setAttribute("class", "mx-auto text-center text-xl md:text-2xl xl:text-3xl font-semibold bg-button-blue rounded-full p-1 md:p-3 mt-2 w-5/6 hover:cursor-pointer");
+        backToSet.addEventListener("click", function() {
+            goBackFromGame();
+        });
+
+        document.getElementById("quizResults").appendChild(percent);
+        document.getElementById("quizResults").appendChild(comment);
+        document.getElementById("quizResults").appendChild(backToSet);
     } else {
         question.innerHTML = questions[currentQuestion][0][0];
         document.getElementById("completion").innerHTML = (currentQuestion + 1) + "/" + numQuestions;
 
         if (quizType == "multipleChoice") {
+            var start = Math.floor(Math.random() * 4);
             for (var i = 0; i < 4; i++) {
-                document.getElementById("answer" + i).innerHTML = questions[currentQuestion][i][1];
+                var offset = start > 3 ? Math.abs(4 - start) : start;
+                document.getElementById("answer" + i).innerHTML = questions[currentQuestion][offset][1];
+                start++;
             }
-        } else {
+        } else if (quizType == "written") {
             document.getElementById("input").value = "";
+            document.getElementById("input").readOnly = false;
+            document.getElementById("input").classList.add("bg-button-blue");
         }
     }
     document.getElementById("quiz").classList.remove("pb-2", "md:pb-3");
