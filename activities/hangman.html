@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="../tailwind.css">
+
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
+        <script src="../index.js"></script>
+        <script src="./hangman.js"></script>
+    </head>
+    <body onload="setup()">
+        <!-- bg not done in html tag because of bug with bg-attachment fixed -->
+        <div class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% fixed bg-no-repeat bg-center w-screen h-screen -z-[1] md:-mt-6"></div>
+        <!-- header -->
+        <div class="bg-french-blue md:mx-6 md:mt-6 md:rounded-md">
+            <div class="md:mx-3 overflow-auto flex md:block">
+                <span class="inline-block mt-2 ml-2">
+                    <svg id="backArrow" onclick="goBackFromGame()" class="w-8 h-8 xsm:w-10 xsm:h-10 md:w-11 md:h-11 text-amber hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                    </svg> 
+                </span>  
+                <h1 id="setName" class="text-white text-5xl md:text-6xl font-semibold pt-2 md:pt-3 px-2 md:px-1 sm:pb-2 text-ellipsis inline-block"></h1>
+            </div>
+            <div id="setAuthor" class="text-white text-md sm:text-lg md:text-xl font-light italic px-12 md:mx-[30px] mt-1 sm:-mt-2 pb-3"></div>
+        </div>
+
+        <div id="game">
+            <div id="word" class="text-white text-3xl sm:text-4xl xl:text-5xl grid grid-cols-10 w-11/12 sm:w-5/12 mx-auto text-center mb-2 sm:mb-4 xl:mb-6 xl:mt-2"></div>
+
+            <div class="mx-auto w-11/12 sm:w-5/12 sm:max-h-60 sm:h-60 xl:w-2/5 max-h-48 h-48 border-2 border-amber bg-white/40 rounded-xl p-2 mb-1 sm:mb-2 lg:mb-4 xl:mb-6">
+                <svg id="man" class="sm:w-full h-full w-3/4 lg:w-3/4 mx-auto">
+                    <circle id="head" class="hidden" cx="50%" cy="20%" r="8%" fill="#000"></circle>
+                    <line id="torso" class="hidden" x1="50%" y1="20%" x2="50%" y2="65%" style="stroke-width:4px; stroke:#000;"></line>
+                    <line id="leg1" class="hidden" x1="50%" y1="65%" x2="45%" y2="90%" style="stroke-width:4px; stroke:#000;"></line>
+                    <line id="leg2" class="hidden" x1="50%" y1="65%" x2="55%" y2="90%" style="stroke-width:4px; stroke:#000;"></line>
+                    <line id="arm1" class="hidden" x1="50%" y1="40%" x2="40%" y2="50%" style="stroke-width:4px; stroke:#000;"></line>
+                    <line id="arm2" class="hidden" x1="50%" y1="40%" x2="60%" y2="50%" style="stroke-width:4px; stroke:#000;"></line>
+                </svg>
+            </div>
+            
+            <div id="keyboardContainer" class="text-white grid grid-rows-3 mx-auto w-11/12 text-center"></div>
+        </div>
+        <div id="win-lose" class="hidden mx-auto w-11/12 sm:w-5/12 xl:w-1/3 text-white bg-french-blue m-4 p-2 sm:p-4 rounded-l flex-col"></div>
+        <div id="howToPlay" class="rounded-full w-8 h-8 sm:w-12 sm:h-12 text-white bg-amber absolute right-2 bottom-2 text-center mx-auto text-2xl sm:text-3xl font-black sm:pt-1 opacity-85 hover:opacity-75" onclick="alert('The goal of hangman is to guess the unknown word.  To choose a letter, click on the provided keyboard or use a keyboard if your device is equipeed with one.  If you guess a letter that isn\'t in the puzzle, parts of Mr. Hangman get added.  The word has to be guessed before you choose 6 incorrect letters.  Bonne chance!')">?</div>
+    </body>
+</html>
