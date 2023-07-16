@@ -80,13 +80,12 @@ function signOut() {
   })
   .catch((error) => {
     var errorCode = error.code;
-    var errorMessage = error.message;
-    accountError(errorCode, errorMessage);
+    // errorMessage = error.message; if needed in future
+    accountError(errorCode);
   })
 }
 
-function accountError(code, message) {
-  alert(code + " " + message);
+function accountError(code) {
   switch (code) {
     case "auth/invalid-email": 
       alert("Error: Invalid email.  Please try again or create a new account by going to the previous page.");
