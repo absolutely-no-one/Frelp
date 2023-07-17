@@ -41,7 +41,6 @@ function generateKeypad() {
             key.setAttribute("id", "key" + letters[i][j].toUpperCase());
             key.setAttribute("class", "bg-french-blue text-lg sm:text-2xl xl:text-3xl m-1 sm:p-2 p-1 mt-2 rounded-md hover:cursor-pointer");
             key.addEventListener("click", function() {
-                console.log("yo")
                 guessLetter(this.innerHTML);
             })
             row.appendChild(key);

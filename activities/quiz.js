@@ -164,8 +164,6 @@ function generateQuiz() {
        questions = questions.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort-b.sort).map(({val}) => val);
     }
 
-    console.log(questions);
-
     document.getElementById("completion").innerHTML = "1/" + numQuestions;
 
     // create container for questions

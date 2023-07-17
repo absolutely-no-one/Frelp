@@ -75,7 +75,6 @@ function loginWithGoogle() {
 function signOut() {
   firebase.auth().signOut()
   .then(()=> {
-    console.log("signed out");
     switchPageTo("index");
   })
   .catch((error) => {
@@ -124,7 +123,6 @@ function isKeyNumber(event) {
 
 function signedIn() {
   const user = firebase.auth().currentUser;
-  console.log(user);
 }
 
 function openPreferences() {
