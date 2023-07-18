@@ -5,7 +5,8 @@ const type = urlSearch.get("type");
 
 var setData = [];
 var termsBetweenReview = 0;
-var quizLang = "";
+var termsWithoutReview = 0;
+var allowOverrides = false;
 
 function generateTitle() {
     const data = firebase.database().ref("/sets/" + type + "/" + id);
@@ -32,8 +33,9 @@ function generateTitle() {
 
 function generateQuestions() {
         // quiz parameters
-        quizLang = document.querySelector("input[type='radio'][name=quizLang]:checked").value;
         termsBetweenReview = document.getElementById("questions").value;
+        allowOverrides = Boolean(document.querySelector("input[type='radio'][name=override]:checked").value);
+
         if (termsBetweenReview < 4) {
             alert("Number of terms between review must be greater than 3");
             return;
@@ -45,10 +47,19 @@ function generateQuestions() {
         document.getElementById("setup").style.display = "none";
         document.getElementById("typing").style.display = "block";
 
+        document.getElementById("input").addEventListener("keyup", function(e) {
+            if (e.key == "Enter") {
+                answerQuestion();
+            }
+        })
+
         setData = setData.map(val => ({val, sort: Math.random()})).sort((a,b) => a.sort - b.sort).map(({val}) => val);
         console.log(setData);
+        askQuestion();
 }
 
 function askQuestion() {
+    document.getElementById("question").innerHTML = setData.pop().definition;
+    console.log(setData);
 
 }
