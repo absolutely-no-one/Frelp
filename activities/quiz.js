@@ -196,7 +196,7 @@ function generateQuiz() {
         input.setAttribute("id", "input");
         input.setAttribute("class", "text-2xl text-center w-11/12 rounded-md bg-button-blue");
         input.addEventListener("keyup", function (e) {
-            if (e.key == "Enter") {
+            if (e.key == "Enter" && this.value.trim().length > 0) {
                 answerQuestion(this);
             }
         })
