@@ -24,7 +24,7 @@ function getData() {
 
                 var term = document.createElement("span");
                 term.innerHTML = element.term;
-                terms.setAttribute("class", "text-2xl sm:text-3xl md:text-4xl font-semibold");
+                term.setAttribute("class", "text-2xl sm:text-3xl md:text-4xl font-semibold");
 
                 var dash = document.createElement("span")
                 dash.innerHTML = " - ";
