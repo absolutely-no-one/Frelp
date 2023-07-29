@@ -17,7 +17,7 @@ function generateTitle() {
     const data = firebase.database().ref("/sets/" + type + "/" + id);
 
     data.once("value").then((snapshot) => {
-        val = snapshot.val()
+        val = snapshot.val();
         document.getElementById("setName").innerHTML = val.name;
         document.getElementById("setAuthor").innerHTML = "By " + val.author;
         document.getElementById("questions").max = val.totalTerms;
@@ -29,7 +29,8 @@ function generateTitle() {
                 setData.push(childSnapshot);
             } else if (type == "conjugation") {
                 for (var i = 0; i < childSnapshot.length - 1; i++) {
-                    setData.push(childSnapshot[i]);
+                    formattedData = {"term": childSnapshot[i][0], "definition": childSnapshot[i][1]};
+                    setData.push(formattedData);
                 }
             }
         })
