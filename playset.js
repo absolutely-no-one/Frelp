@@ -6,6 +6,10 @@ const type = urlSearch.get("type");
 function getData() {
     const data = firebase.database().ref("/sets/" + type + "/" + id);
 
+    if (type == "conjugation") {
+        document.getElementById("hangman").remove();
+    }
+
     var setName = document.getElementById("setName");
     var setAuthor = document.getElementById("setAuthor");
     var termsData = document.getElementById("termsData");
