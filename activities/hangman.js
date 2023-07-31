@@ -14,14 +14,9 @@ var letters = [["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"], ["A", "S", "D
 
 function setup() {
     const data = firebase.database().ref("/sets/" + type + "/" + id);
-    var input = document.getElementById("questions");
-
-    if (type == "conjugation") {
-        document.getElementById("language").style.display = "none";
-    }
 
     data.once('value').then((snapshot) => {
-        var val = snapshot.val()
+        var val = snapshot.val();
         setData = val.terms;
         document.getElementById("setName").innerHTML = val.name;
         document.getElementById("setAuthor").innerHTML = "By " + val.author;
