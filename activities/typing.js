@@ -245,7 +245,7 @@ function finishTyping() {
     playAgain.setAttribute("class", "text-white w-11/12 md:w-1/3 bg-french-blue text-center py-1 rounded-md mx-auto text-xl sm:text-2xl xl:text-3xl hover:cursor-pointer hover:underline decoration-amber");
     playAgain.addEventListener("click", function() {
         window.location.reload();
-    })
+    });
 
     document.getElementById("results").appendChild(playAgain);
 
@@ -254,7 +254,7 @@ function finishTyping() {
     home.setAttribute("class", "text-white w-11/12 md:w-1/3 my-2 bg-french-blue text-center py-1 rounded-md mx-auto text-xl sm:text-2xl xl:text-3xl hover:cursor-pointer hover:underline decoration-amber");
     home.addEventListener("click", function() {
         goBackFromGame();
-    })
+    });
 
     document.getElementById("results").appendChild(home);
 }
