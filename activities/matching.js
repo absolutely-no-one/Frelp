@@ -16,8 +16,17 @@ function generateTitle() {
     const data = firebase.database().ref("/sets/" + type + "/" + id);
 
     data.once('value').then((snapshot) => {
-        var val = snapshot.val()
-        setData = val.terms;
+        var val = snapshot.val();
+        if (type == "conjugation") {
+            for (var i = 0; i < val.terms.length; i++) {
+                for (var j = 0; j < val.terms[i].length - 1; j++) {
+                    setData.push({"term": val.terms[i][j][0], "definition": val.terms[i][j][1]});
+                }
+            }
+        } else {
+            setData = val.terms;
+        }
+
         document.getElementById("totalMatches").max = setData.length < 20 ? setData.length : 20;
         document.getElementById("setName").innerHTML = val.name;
         document.getElementById("setAuthor").innerHTML = "By " + val.author;
@@ -41,7 +50,7 @@ function generateBoard() {
     for (var i = 0; i < totalMatches; i++) {
         var card = document.createElement("div");
         card.setAttribute("id", i + 1);
-        card.setAttribute("class", "w-11/12 h-20 m-2 p-1 bg-french-blue text-white text-xl font-semibold text-center flex flex-col justify-center rounded-lg hover:cursor-pointer");
+        card.setAttribute("class", "w-11/12 h-20 sm:h-24 lg:h-28 m-2 p-1 bg-french-blue text-white text-xl font-semibold text-center flex flex-col justify-center rounded-lg hover:cursor-pointer transition-opacity duration-500 motion-reduce:transition-none break-words delay-500");
         card.text = setData[i].term;
         card.addEventListener("click", function() {
             checkCard(this.id, this.text);
@@ -49,7 +58,7 @@ function generateBoard() {
 
         var matchingCard = document.createElement("div");
         matchingCard.setAttribute("id", (i + 1) * -1);
-        matchingCard.setAttribute("class", "w-11/12 h-20 m-2 p-1 bg-french-blue text-white text-xl font-semibold text-center flex flex-col justify-center rounded-lg hover:cursor-pointer");
+        matchingCard.setAttribute("class", "w-11/12 h-20 sm:h-24 lg:h-28 m-2 p-1 bg-french-blue text-white text-xl font-semibold text-center flex flex-col justify-center rounded-lg hover:cursor-pointer transition-opacity duration-500 motion-reduce:transition-none break-words delay-500");
         matchingCard.text = setData[i].definition;
         matchingCard.addEventListener("click", function() {
             checkCard(this.id, this.text);
@@ -71,6 +80,7 @@ function generateBoard() {
 function checkCard(card, text) {
     if (animating == false && card != selectedCardId) {
         document.getElementById(card).innerHTML = text;
+        document.getElementById(card).style.backgroundColor = "#001543";
 
         if (card < 0) {
             cardsFlipped[(Number(card) + 1) * -1][0] += 1;
@@ -84,23 +94,30 @@ function checkCard(card, text) {
         } else {
             animating = true;
             guesses ++;
+            document.getElementById(card).style.backgroundColor = "#001543";
             if (selectedCardId == card * -1) {
+                document.getElementById(card).style.opacity = 0;
+                document.getElementById(selectedCardId).style.opacity = 0;
                 setTimeout(() => {
                     document.getElementById(card).remove();
                     document.getElementById(selectedCardId).remove();
+
                     animating = false;
                     cardSelected = false;
 
                     if (document.getElementById("cardGrid").children.length == 0) {
                         finishGame();
                     }
-                }, 500);
+                }, 1000);
             } else {
                 setTimeout(() => {
                     document.getElementById(card).innerHTML = "";
                     document.getElementById(selectedCardId).innerHTML = "";
                     animating = false;
                     cardSelected = false;
+
+                    document.getElementById(selectedCardId).style.backgroundColor = "#002654";
+                    document.getElementById(card).style.backgroundColor = "#002654";
                 }, 500);
             }
         }
