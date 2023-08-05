@@ -109,6 +109,10 @@ function playGame(game) {
   window.location.href = "./activities/" + game + ".html?id=" + id + "&type=" + type;
 }
 
+function switchGame(game) {
+  window.location.href = "./" + game + ".html?id=" + id + "&type=" + type;
+}
+
 function goBackFromGame() {
   window.location.href = "../playset.html?id=" + id + "&type=" + type;
 }
