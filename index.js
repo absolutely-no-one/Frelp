@@ -28,8 +28,6 @@ firebase.auth().onAuthStateChanged((currentUser) => {
     if (window.location.href.indexOf("index.html") > -1 || window.location.href.indexOf("login.html") > -1) {
       switchPageTo("home");
     }
-  } else {
-    console.log(currentUser);
   }
 })
 
@@ -41,13 +39,13 @@ function createAccount(email, password, username) {
     signIn(email, password, "home");
     databaseUsers.child(user.uid).set({
       "username": username.toString().trim(),
-      "sets": []
+      "sets": [],
+      "canCreateSets": false
     });
   })
   .catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
-    alert("oops");
     accountError(errorCode, errorMessage);
   });
 }
