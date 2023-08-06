@@ -1,14 +1,9 @@
 types = ["vocab", "conjugation"];
 
 window.addEventListener("load", function () {
-  loadSets();
+  loadMySets();
   detectInput('category', 'possibleCategories', 'categories', 'possibleCategories');
 })
-
-function loadSets() {
-    loadMySets();
-    // load most popular/liked sets
-}
 
 function loadMySets() {
     const mysets = document.getElementById("my-sets");
@@ -22,6 +17,13 @@ function loadMySets() {
           user2 = currentUser;
           data = firebase.database().ref("/users/" + user2.uid);
           document.getElementById("welcome-name").innerHTML = currentUser.displayName;
+
+          data.child("canCreateSets").once("value").then((snapshot) => {
+            if (!snapshot.val()) {
+              document.getElementById("createSet").remove();
+            }
+          });
+          
           data.child("sets").once("value").then((snapshot) => {
             if (!snapshot.val()){
               var noSetContainer = document.createElement("div");
