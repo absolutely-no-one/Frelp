@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="./tailwind.css">
+
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
+        <script src="./index.js"></script>
+        <script src="./login.js"></script>
+    </head>
+    <body>
+        <!-- bg not done in html tag because of bug with bg-attachment fixed -->
+        <div class="bg-gradient-to-bl from-blue-900/90 from-50% to-red-900/90 to-50% fixed bg-no-repeat bg-center w-screen h-screen -z-[1]"></div>
+
+        <div class="py-2 sm:w-1/2 lg:w-5/12 mx-auto">
+        <h1 class="text-white mx-auto text-center text-5xl md:text-6xl font-bold pb-4 decoration-amber underline"> Login </h1>
+        <form onsubmit="return false" class="bg-gray-200 w-11/12 p-4 mx-auto rounded-lg shadow-md">
+            <div class="mb-2">
+            <label for="email" class="text-gray-600 font-semibold text-lg sm:text-xl md:text-3xl">Email: </label>
+            <br class="md:hidden">
+            <input id="email" type="email" name="email" required class="rounded-md md:float-right pl-2 md:h-8">
+            </div>
+
+            <div class="mb-2">
+            <label for="password" class="text-gray-600 font-semibold text-lg sm:text-xl md:text-3xl">Password:</label>
+            <br class="md:hidden">
+            <input id="password" type="password" required class="rounded-md md:float-right pl-2 md:h-8">
+            </div>
+
+            <p onclick="login()" class="hover:cursor-pointer w-min text-center mx-auto text-red-600 hover:opacity-90 hover:underline decoration-amber text-3xl md:text-4xl font-bold pt-2 -pb-2">Enter</p>
+        </form>
+        <p class="text-white text-3xl p-2 text-center font-bold"> OR </p>
+        <div onclick="loginWithGoogle()" class="text-2xl md:text-3xl lg:text-4xl py-1 px-8 font-bold text-center w-11/12 mx-auto hover:cursor-pointer decoration-amber border-gray-200 hover:underline hover:opacity-90 text-white border-2 rounded-md bg-french-blue shadow-md">Login with google</div>
+        <div onclick="switchPageTo('index')" class="text-2xl md:text-3xl py-1 px-4 font-bold text-center w-1/2 mx-auto mt-2 hover:cursor-pointer decoration-amber border-gray-200 hover:underline hover:opacity-90 text-white border-2 rounded-md bg-french-blue shadow-md">Home</div>
+        </div>
+    </body>
+</html>
