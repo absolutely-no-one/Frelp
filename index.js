@@ -12,89 +12,6 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-var user;
-var databaseUsers = firebase.database().ref("users");
-
-firebase.auth().onAuthStateChanged((currentUser) => {
-  if (currentUser) {
-    // may change to display name associated with account
-    if (currentUser.displayName != currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@"))) {
-      currentUser.updateProfile({
-        displayName: currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@"))
-      })
-    }
-
-    user = currentUser;
-    if (window.location.href.indexOf("index.html") > -1 || window.location.href.indexOf("login.html") > -1) {
-      switchPageTo("home");
-    }
-  }
-})
-
-function createAccount(email, password, username) {
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // Signed in 
-    user = userCredential.user;
-    signIn(email, password, "home");
-    databaseUsers.child(user.uid).set({
-      "username": username.toString().trim(),
-      "sets": [],
-      "canCreateSets": false
-    });
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    accountError(errorCode, errorMessage);
-  });
-}
-
-function signIn(email, password, nextPage) {
-  firebase.auth().signInWithEmailAndPassword(email, password)
-  .then((userCredential) => 
-  {
-    // Signed in
-    user = userCredential.user;
-    switchPageTo(nextPage);
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    accountError(errorCode, errorMessage);
-  })
-}
-
-function loginWithGoogle() {
-  var provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider);
-}
-
-function signOut() {
-  firebase.auth().signOut()
-  .then(()=> {
-    switchPageTo("index");
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    // errorMessage = error.message; if needed in future
-    accountError(errorCode);
-  })
-}
-
-function accountError(code) {
-  switch (code) {
-    case "auth/invalid-email": 
-      alert("Error: Invalid email.  Please try again or create a new account by going to the previous page.");
-    break;
-    case "auth/wrong-password":
-      alert("Error: Incorrect password.");
-    break;
-    default: 
-      alert("whoops");
-  }
-}
-
 function switchPageTo(page) {
   window.location.href = "./" + page + ".html";
 }
@@ -121,20 +38,4 @@ function isKeyNumber(event) {
     return false;
   }
   return true;
-}
-
-function signedIn() {
-  const user = firebase.auth().currentUser;
-}
-
-function openPreferences() {
-  var preferences = document.getElementById("preferencesTabs");
-
-  if (preferences.style.display == "none") {
-    preferences.style.display = "grid";
-    document.getElementById("user").classList.add("bg-blue-700");
-  } else {
-    preferences.style.display = "none";
-    document.getElementById("user").classList.remove("bg-blue-700");
-  }
 }

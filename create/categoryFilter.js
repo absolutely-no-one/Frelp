@@ -72,7 +72,7 @@ function detectInput(input, possibleChildren, appendedData, possibleCats) {
                 children[i].style.display = "none";
             }
             cat.value = "";
-            if (window.location.href.indexOf("home") > -1) {
+            if (window.location.href.indexOf("/study.html") > -1) {
                 searchQuery();
             }
         })

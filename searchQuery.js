@@ -24,25 +24,36 @@ function searchQuery() {
             childSnapshot.forEach((grandchildSnapshot) => {
                 codeBlock: {
                 for (var i = 0; i < cats.length; i++) {
-                    if (grandchildSnapshot.val().categories.indexOf(cats[i]) < 0 && cats.length != 0) {
+                    if (grandchildSnapshot.val().categories.indexOf(cats[i]) < 0) {
                         break codeBlock;
                     }
                 }
                 if (grandchildSnapshot.val().name.toUpperCase().includes(search.toUpperCase())) {
                     var container = document.createElement("div");
-                    container.setAttribute("class", "bg-gray-200 m-2 rounded-md p-4 basis-2/3 sm:basis-1/4 hover:cursor-pointer");
+                    container.setAttribute("class", "bg-gray-200 ml-0 mr-8 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none hover:cursor-pointerr");
                     container.onclick = () => {
                         window.location.href = "/playset.html?id=" + grandchildSnapshot.key + "&type=" + grandchildSnapshot.val().type;
                     };
 
                     var name = document.createElement("h1");
                     name.innerHTML = grandchildSnapshot.val().name;
-                     name.setAttribute("class", "text-2xl text-truncate line-clamp-2");
+                    name.setAttribute("class", "text-2xl text-gray-700 font-bold text-truncate line-clamp-2");
+
+                    var categories = document.createElement("div");
+                    for (var j = 0; j < grandchildSnapshot.val().categories.length; j++) {
+                        categories.innerHTML += grandchildSnapshot.val().categories[j];
+                        if (j + 1 < grandchildSnapshot.val().categories.length) {
+                            categories.innerHTML += " | ";
+                        }
+                    }
+                    categories.setAttribute("class", "text-xl text-gray-600 flex-none");
 
                     var type = document.createElement("p");
                     type.innerHTML = childSnapshot.key;
+                    type.setAttribute("class", "text-lg text-gray-400 capitalize");
 
                     container.appendChild(name);
+                    container.appendChild(categories);
                     container.appendChild(type);
                     childrenArray.push(container);
                 }
@@ -87,4 +98,12 @@ function returnHome() {
     for (var k = 0; k < sortedCats.length; k++) {
         possibleCategories.getElementsByTagName("*")[k].innerHTML = sortedCats[k];
     }
+}
+
+function detectEnter() {
+    document.getElementById("searchContainer").addEventListener("keyup", (e) => {
+        if (e.key == "Enter") {
+            searchQuery();
+        }
+    })
 }

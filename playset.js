@@ -11,13 +11,11 @@ function getData() {
     }
 
     var setName = document.getElementById("setName");
-    var setAuthor = document.getElementById("setAuthor");
     var termsData = document.getElementById("termsData");
 
     data.once("value").then((snapshot) => {
         const val = snapshot.val();
         setName.innerHTML = val.name;
-        setAuthor.innerHTML = "By " + val.author;
         document.getElementById("totalTerms").innerHTML = val.totalterms + " total terms";
         if (type == "vocab") {
             val.terms.forEach(element => {
