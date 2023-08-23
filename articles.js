@@ -16,13 +16,13 @@ populate().then(function (data) {
     for (var i = 0; i < data[type].articles.length; i++) {
         var container = document.createElement("div");
         container.setAttribute("class", "bg-gray-200 ml-0 mr-8 rounded-md p-4 basis-2/3 sm:basis-1/4 flex-none hover:cursor-pointer capitalize");
-        container.setAttribute("id", data[type].articles[i].title.replace(/\s/, ''));
+        container.setAttribute("id", data[type].target + "/" + data[type].articles[i].title.replace(/\s/, ''));
         container.addEventListener("click", function () {
-          window.location.href = "./articles/verbs/" + this.id + ".html";
+          window.location.href = "./articles/" + this.id + ".html";
         });
 
         var name = document.createElement("h1");
-        name.innerHTML = data[type].articles[i].title;
+        name.innerHTML = data[type].articles[i].pseudoTitle ? data[type].articles[i].pseudoTitle : data[type].articles[i].title;
         name.setAttribute("class", "text-2xl text-gray-700 font-bold text-truncate line-clamp-2");
 
         var tags = document.createElement("div");
