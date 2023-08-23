@@ -1,0 +1,17 @@
+{
+    "target" : "general",
+    "articles" : [
+    {
+        "title" : "Contractions",
+        "tags" : ["beginner"]
+    },
+    {
+        "title" : "De, du, de la, des",
+        "tags" : ["beginner", "important"]
+    },
+    {
+        "title" : "Au, à la, aux",
+        "tags" : ["beginner", "important"]
+    }
+]
+}
