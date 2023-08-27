@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="./tailwind.css">
+        <link rel="stylesheet" href="./scrollbar.css">
+
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
+        <script src="./index.js"></script>
+        <script src="./articles.js"></script>
+    </head>
+    <body class="flex min-h-screen flex-col no-scrollbar">
+        <!-- bg not done in html tag because of bug with bg-attachment fixed -->
+        <div class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% fixed bg-no-repeat bg-center w-screen h-screen -z-[1]"></div>
+        <!-- header -->
+        <div class="bg-french-blue md:mx-6 md:mt-6 md:rounded-md">
+            <div class="md:mx-3 overflow-auto flex md:block">
+                <span class="inline-block mt-2 ml-2">
+                    <svg id="back" onclick="switchPageTo('index')" class="w-8 h-8 xsm:w-10 xsm:h-10 md:w-11 md:h-11 text-amber hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                    </svg> 
+                </span>  
+                <h1 id="welcome" class="text-white text-4xl md:text-6xl font-semibold pt-2 md:pt-3 px-2 md:px-1 pb-2 text-ellipsis inline-block z-[2]">Pick a topic to learn</h1>
+            </div>
+        </div>
+        
+        <!-- line with circle in middle-->
+        <div class="flex w-11/12 mx-auto pb-4 pt-2 sm:pt-4">
+            <div class="outline-amber outline outline-1 sm:outline-2 w-1/2 h-0 my-auto"></div>
+            <div class="border-amber border-2 sm:border-4 rounded-full w-3 h-3 sm:w-5 sm:h-5"></div>
+            <div class="outline-amber outline outline-1 sm:outline-2 w-1/2 h-0 my-auto"></div>
+        </div>
+
+        <div id="sets">
+            <h1 class="text-white text-4xl underline decoration-amber underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2"> Verbs </h1>
+            <div class="bg-french-blue sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
+                <div id="verbs-articles" class="flex flex-nowrap overflow-x-scroll no-scrollbar"></div>
+            </div>
+
+            <h1 class="text-white text-4xl underline decoration-amber underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2"> Nouns </h1>
+            <div class="bg-french-blue sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
+                <div id="nouns-articles" class="flex flex-nowrap overflow-x-scroll no-scrollbar"></div>
+            </div>
+
+            <h1 class="text-white text-4xl underline decoration-amber underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2"> Adjectives </h1>
+            <div class="bg-french-blue sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
+                <div id="adjectives-articles" class="flex flex-nowrap overflow-x-scroll no-scrollbar"></div>
+            </div>
+
+            <h1 class="text-white text-4xl underline decoration-amber underline-offset-8 sm:text-5xl md:text-6xl font-semibold mx-3 sm:mx-14 my-2"> General </h1>
+            <div class="bg-french-blue sm:rounded-md p-3 sm:mx-14 sm:p-5 my-3">
+                <div id="general-articles" class="flex flex-nowrap overflow-x-scroll no-scrollbar"></div>
+            </div>
+
+            
+        </div>
+
+        <div id="searchResults" class="hidden grid-cols-1 xsm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-auto p-2 my-4 no-scrollbar w-11/12 md:mx-11 xl:mx-14 rounded-md bg-french-blue"></div>
+        
+        <div id="noResults" class="hidden mx-auto bg-french-blue text-white text-center py-5 my-5 md:py-10 md:my-10 rounded-md w-11/12 md:w-3/4 font-semibold text-3xl md:text-5xl">No sets found.  Maybe you have a typo?</div>
+        
+        <div class="flex-auto"></div>
+        <footer class="grid grid-cols-4 text-sm md:text-md w-full bg-french-blue">
+            <p class="text-center mx-auto italic text-gray-300 p-2 col-span-2"> Icons from <a href="https://heroicons.com" class="underline">heroicons.com</a></p>
+            <p class="text-center mx-auto text-gray-300 p-2 col-span-2">Made by Absolutely No One</p>
+        </footer>   
+    </body>
+</html>
