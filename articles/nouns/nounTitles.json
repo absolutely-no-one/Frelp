@@ -1,0 +1,13 @@
+{
+    "target" : "nouns",
+    "articles" : [
+    {
+        "title" : "Noun basics",
+        "tags" : ["beginner"]
+    },
+    {
+        "title" : "Noun genders",
+        "tags" : ["beginner", "important"]
+    }
+]
+}

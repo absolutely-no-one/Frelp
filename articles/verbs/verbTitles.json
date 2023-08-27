@@ -1,0 +1,12 @@
+{
+    "target" : "verbs",
+    "articles" : [
+    {
+        "title" : "Verb basics",
+        "tags" : ["beginner"]
+    },
+    {
+        "title" : "Conjugation chart",
+        "tags" : ["beginner", "important"]
+    }
+]}
