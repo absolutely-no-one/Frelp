@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="../../tailwind.css">
+        <link rel="stylesheet" href="../../scrollbar.css">
+
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
+        <script src="../../index.js"></script>
+
+    </head>
+    <body class="flex min-h-screen flex-col no-scrollbar">
+        <!-- bg not done in html tag because of bug with bg-attachment fixed -->
+        <div class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% fixed bg-no-repeat bg-center w-screen h-screen -z-[1]"></div>
+        <!-- header -->
+        <div class="bg-french-blue md:mx-6 md:mt-6 md:rounded-md">
+            <div class="md:mx-3 overflow-auto flex md:block">
+                <span class="inline-block mt-2 ml-2">
+                    <svg id="back" onclick="switchPageToFolder('../grammar')" class="w-8 h-8 xsm:w-10 xsm:h-10 md:w-11 md:h-11 text-amber hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                    </svg> 
+                </span>  
+                <h1 id="welcome" class="text-white text-5xl md:text-6xl font-semibold pt-2 md:pt-3 px-2 md:px-1 pb-2 text-ellipsis inline-block z-[2]">Contractions</h1>
+            </div>
+        </div>
+        
+        <div id="takeaways" class="bg-french-blue text-white md:w-11/12 mx-auto p-4 m-6 md:rounded-md font-light marker:text-amber">
+            <h1 class="text-3xl md:text-4xl font-semibold"> Main takeaways </h1>
+            <ul class="list-disc list-inside mt-2 text-xl">
+                <li> Contractions are the shortening of words and make the language flow easier </li>
+                <li> Unlike English, French contractions must be done when applicable </li>
+                <li> For contracting "de + le" and "à + le", view the following:
+                    <ul class="list-[square] list-inside ml-8">
+                        <li> 
+                            <a href="contractionDe.html" class="underline decoration-french-red">De, du, de la, des</a> 
+                        </li>
+                        <li>
+                            <a href="contractionAu.html" class="underline decoration-french-red">Au, à la, aux</a> 
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <hr class="border-amber border-[1px] xl:border-2 rounded-full w-11/12 mx-auto">
+
+        <div id="article" class="bg-french-blue text-white md:w-11/12 mx-auto p-6 m-6 md:rounded-md text-justify">
+            <h1 class="text-3xl md:text-4xl font-semibold text-left">What are contractions?</h1>
+            <br>
+            <div class="text-xl indent-8 font-light">
+                Contractions are the shortening of common phrases to make a language flow better.  In English, an example of a contraction would be "it's" from the two words "it is," or "you're" from "you are."
+                French has contractions, but unlike in English they must be done where possible.
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div class="flex-auto"></div>
+        <footer class="grid grid-cols-4 text-sm md:text-md w-full bg-french-blue">
+            <p class="text-center mx-auto italic text-gray-300 p-2 col-span-2"> Icons from <a href="https://heroicons.com" class="underline">heroicons.com</a></p>
+            <p class="text-center mx-auto text-gray-300 p-2 col-span-2">Made by Absolutely No One</p>
+        </footer>   
+    </body>
+</html>

@@ -6,11 +6,13 @@
         "tags" : ["beginner"]
     },
     {
-        "title" : "De, du, de la, des",
+        "title" : "contractionDe",
+        "pseudoTitle" : "De, du, de la, des",
         "tags" : ["beginner", "important"]
     },
     {
-        "title" : "Au, à la, aux",
+        "title" : "contractionAu",
+        "pseudoTitle" : "Au, à la, de la, des",
         "tags" : ["beginner", "important"]
     }
 ]
