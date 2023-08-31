@@ -207,6 +207,10 @@ function generateQuiz() {
     container.appendChild(answers);
     document.getElementById("quiz").appendChild(container);
     document.getElementById("quiz").style.display = "block";
+
+    if (document.getElementById("input")) {
+    document.getElementById("input").select();
+    }
 }
 
 function answerQuestion(selected) {
@@ -260,7 +264,7 @@ function answerQuestion(selected) {
         next.setAttribute("class", "bg-button-blue mx-auto text-center w-1/2 md:w-1/3 rounded-full text-2xl md:text-3xl font-semibold -mt-1 hover:cursor-pointer");
         next.addEventListener("click", function () {
             nextQuestion(selected);
-            if (quizType == "written") {
+            if (quizType == "written" && document.getElementById("correctAns")) {
                 document.getElementById("correctAns").remove();
                 document.getElementById("manOv").remove();
             }
@@ -271,7 +275,9 @@ function answerQuestion(selected) {
 
         if (quizType == "written") {
             next.classList.add("md:mt-1");
-            document.getElementById("quiz").appendChild(manualOverride);
+            if (manualOverride) {
+                document.getElementById("quiz").appendChild(manualOverride);
+            }
         }
     }
 }
@@ -330,6 +336,7 @@ function nextQuestion(element) {
         } else if (quizType == "written") {
             document.getElementById("input").value = "";
             document.getElementById("input").readOnly = false;
+            document.getElementById("input").select();
             document.getElementById("input").classList.add("bg-button-blue");
         }
     }

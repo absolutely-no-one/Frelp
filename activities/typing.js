@@ -70,6 +70,7 @@ function askQuestion() {
     if (termsWithoutReview != termsBetweenReview && setData.length > 0) {
         currentQuestion = setData.pop();
         document.getElementById("question").innerHTML = currentQuestion.definition;
+        document.getElementById("input").select();
     } else {
         if (incorrectTerms.length > 0) {
             currentQuestion = incorrectTerms[0];

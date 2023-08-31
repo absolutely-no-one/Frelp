@@ -74,6 +74,7 @@ function returnHome() {
     document.getElementById("searchResults").style.display = "none";
     document.getElementById("backArrow").style.display = "none";
     document.getElementById("filter").style.display = "none";
+    document.getElementById("noResults").style.display = "none";
     document.getElementById("search").value = "";
     document.getElementById("searchContainer").classList.remove("ml-4", "sm:ml-0", "md:-ml-2", "mdlg:-ml-6", "lg:-ml-8", "xl:-ml-14");
 
