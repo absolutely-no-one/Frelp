@@ -20,7 +20,7 @@ function loadMySets() {
 
           data.child("canCreateSets").once("value").then((snapshot) => {
             if (!snapshot.val()) {
-              document.getElementById("createSet").remove();
+             // document.getElementById("createSet").remove();
             }
           });
           
