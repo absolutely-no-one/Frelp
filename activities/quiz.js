@@ -29,7 +29,6 @@ function setQuizOptions() {
         setData = val.terms;
         termNum = val.totalterms;
         document.getElementById("setName").innerHTML = val.name;
-        document.getElementById("setAuthor").innerHTML = val.author;
         input.max = termNum;
         input.value = termNum;
         if (type == "conjugation") {

@@ -29,7 +29,6 @@ function generateTitle() {
 
         document.getElementById("totalMatches").max = setData.length < 20 ? setData.length : 20;
         document.getElementById("setName").innerHTML = val.name;
-        document.getElementById("setAuthor").innerHTML = "By " + val.author;
     })
 
     document.getElementById("totalMatches").addEventListener("input", function() {

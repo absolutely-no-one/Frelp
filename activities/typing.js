@@ -19,7 +19,6 @@ function generateTitle() {
     data.once("value").then((snapshot) => {
         val = snapshot.val();
         document.getElementById("setName").innerHTML = val.name;
-        document.getElementById("setAuthor").innerHTML = "By " + val.author;
         document.getElementById("questions").max = val.totalTerms;
         if (type == "conjugation") {
             document.getElementById("questions").max = val.totalTerms * 7;

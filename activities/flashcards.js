@@ -13,7 +13,6 @@ function generateCards() {
 
     data.once("value").then((snapshot) => {
         document.getElementById("setName").innerHTML = snapshot.val().name;
-        document.getElementById("setAuthor").innerHTML = "By " + snapshot.val().author;
         snapshot.val().terms.forEach((childSnapshot) => {
             if (type == "vocab") {
                 setData.push(childSnapshot);
