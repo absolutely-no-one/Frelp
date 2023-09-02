@@ -19,7 +19,6 @@ function setup() {
         var val = snapshot.val();
         setData = val.terms;
         document.getElementById("setName").innerHTML = val.name;
-        document.getElementById("setAuthor").innerHTML = "By " + val.author;
         generateKeypad();
         generateWord();
     })
@@ -76,7 +75,7 @@ function guessLetter(letter) {
     if (finished == false && totalGuesses.indexOf(letter) < 0) {
         document.getElementById("key" + letter.toUpperCase()).style.opacity = 0.5;
         totalGuesses.push(letter);
-        numLetters = 0;
+        var numLetters = 0;
         for (var i = 0; i < word.length; i++) {
             if (word[i].toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") == letter.toUpperCase()) {
                 document.getElementById("letter" + i).innerHTML = word[i].toUpperCase();
@@ -87,7 +86,7 @@ function guessLetter(letter) {
         if (numLetters == 0) {
             badGuesses.push(letter);
             addToMan(badGuesses.length);
-            if (badGuesses.length == 6) {
+            if (badGuesses.length == 7) {
                 finished == true;
                 displayResetScreen("lose");
             }
@@ -200,7 +199,9 @@ function addToMan(number) {
         case 5:
             document.getElementById("arm1").style.display = "block";
         break;
-        default:
+        case 6:
             document.getElementById("arm2").style.display = "block";            
+        break;
+        default:
     }
 }
