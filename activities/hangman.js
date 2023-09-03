@@ -59,12 +59,16 @@ function generateWord() {
     letterHolder.replaceChildren();
 
     for (var i = 0; i < word.length; i++) {
-        var letterBox = document.createElement("div");
+        var letterBox = document.createElement("span");
         letterBox.setAttribute("id", "letter" + i);
-        letterBox.setAttribute("class", "pt-2 sm:pt-4");
+        letterBox.setAttribute("class", "pt-2 sm:pt-4 px-1 sm:px-3 whitespace-pre-line");
         letterBox.innerHTML = "_";
         if (word[i] == " ") {
-            letterBox.innerHTML = " ";
+            if (i % 7 > 5) {
+                letterBox.innerHTML = "\n";
+            } else {
+                letterBox.innerHTML = " ";
+            }
             guessedLetters += 1;
         }
         letterHolder.appendChild(letterBox);
