@@ -47,9 +47,9 @@ function detectInput(input, possibleChildren, appendedData, possibleCats) {
                     alert("Max. 5 categories allowed");
                 }
              } else {
+                console.log("hi")
                 this.innerHTML = this.innerHTML.toString().substring(0,this.innerHTML.toString().length - 2);
                 this.classList.add("w-full");
-                possibleCategories.appendChild(this);
 
                 if (document.getElementById("categories").children.length == 0) {
                     document.getElementById("categories").classList.remove("p-1");
@@ -58,6 +58,8 @@ function detectInput(input, possibleChildren, appendedData, possibleCats) {
                 if (this.parentElement.classList.contains("filterBar")) {
                     this.classList.remove("bg-dark-amber", "text-white", "text-sm", "font-semibold", "md:text-lg", "rounded-sm", "px-1", "py-0.5", "m-1");
                 }
+                
+                possibleCategories.appendChild(this);
 
                 var sortedChildren = [];
                 for (var j = 0; j < possibleCategories.getElementsByTagName("*").length; j++) {
