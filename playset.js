@@ -3,6 +3,8 @@ const urlSearch = new URLSearchParams(url);
 const id = urlSearch.get("id");
 const type = urlSearch.get("type");
 
+var reportReason = "incorrect";
+
 function getData() {
     const data = firebase.database().ref("/sets/" + type + "/" + id);
 
@@ -113,5 +115,32 @@ function getData() {
                 termsData.appendChild(container);
             });
         }
+    })
+}
+
+function report(direction) {
+    if (direction == "report") {
+        document.getElementById("report").style.display = "block";
+        document.getElementById("setContents").style.display = "none";
+    } else if (direction == "back") {
+        document.getElementById("report").style.display = "none";
+        document.getElementById("setContents").style.display = "block";
+    }
+}
+
+function setReportReason(reason) {
+    document.getElementById("report-" + reportReason).classList.remove("bg-burnt-orange");
+    reportReason = reason;
+    document.getElementById("report-" + reason).classList.add("bg-burnt-orange");
+}
+
+function sendReport() {
+    var newReport = firebase.database().ref("reports").push();
+    newReport.set({
+        "id": id,
+        "type": type,
+        "reason": reportReason
+    }).then(() => {
+        report("back");
     })
 }

@@ -15,32 +15,60 @@
     <body onload="getData()">
         <!-- bg not done in html tag because of bug with bg-attachment fixed -->
         <div class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% fixed bg-no-repeat bg-center w-screen h-screen -z-[1] md:-mt-6"></div>
-        <!-- header-->
-        <div class="bg-french-blue md:mx-6 md:mt-6 md:rounded-md">
-            <div class="md:mx-3 overflow-auto flex md:block">
-                <span class="inline-block mt-2 ml-2">
-                    <svg id="backArrow" onclick="switchPageTo('home')" class="w-8 h-8 xsm:w-10 xsm:h-10 md:w-11 md:h-11 text-amber hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                    </svg> 
-                </span>  
-                <h1 id="setName" class="text-white text-5xl md:text-6xl font-semibold pt-2 md:pt-3 px-2 md:px-1 pb-2 text-ellipsis inline-block z-[2]"></h1>
+        
+        <div id="setContents">
+            <!-- header-->
+            <div class="bg-french-blue md:mx-6 md:mt-6 md:rounded-md">
+                <div class="md:mx-3 overflow-auto flex md:block">
+                    <span class="inline-block mt-2 ml-2">
+                        <svg id="backArrow" onclick="switchPageTo('home')" class="w-8 h-8 xsm:w-10 xsm:h-10 md:w-11 md:h-11 text-amber hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        </svg> 
+                    </span>  
+                    <h1 id="setName" class="text-white text-5xl md:text-6xl font-semibold pt-2 md:pt-3 px-2 md:px-1 pb-2 text-ellipsis inline-block z-[2]"></h1>
+                </div>
+                <div id="setAuthor" class="text-white text-md sm:text-lg md:text-xl font-light italic px-12 md:mx-[30px] -mt-1 lg:-mt-1 pb-3"></div>
             </div>
-            <div id="setAuthor" class="text-white text-md sm:text-lg md:text-xl font-light italic px-12 md:mx-[30px] -mt-1 lg:-mt-1 pb-3"></div>
+
+            <div class="md:mx-6 mt-2 md:rounded-md">
+                <h1 id="reportButton" onclick="report('report')" class="text-white bg-french-blue hover:cursor-pointer hover:underline decoration-amber hover:text-gray-200 rounded-r-md md:rounded-md text-2xl md:text-3xl font-semibold p-2 md:p-3 text-ellipsis inline-block z-[2]">Notice something wrong?</h1>
+            </div>
+
+            <div class="text-white text-2xl sm:text-3xl md:text-4xl mx-auto md:mx-6 md:text-left text-center font-medium px-3 md:px-1 py-2">Choose an activity to do</div>
+            <div id="activities" class="text-white w-full px-3 pt-2 md:w-1/2">
+                <div id="flashcard-review" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6 bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 rounded-md" onclick="playGame('flashcards')">Flashcards</div>
+                <div id="matching-game" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6  bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 mt-2 rounded-md" onclick="playGame('matching')"> Match Game </div>
+                <div id="typing" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6 bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 mt-2 rounded-md" onclick="playGame('typing')">Typing</div>
+                <div id="hangman" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6 bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 mt-2 rounded-md" onclick="playGame('hangman')">Hangman</div>
+                <div id="quiz" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6 bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 mt-2 rounded-md" onclick="playGame('quiz')">Quiz</div>
+            </div>
+            <div id="terms">
+                <h1 class="text-white text-3xl sm:text-4xl md:text-5xl mx-auto text-left font-semibold px-3 pt-2 underline underline-offset-4 decoration-amber md:mx-5">Set contents</h1>
+                <div id="totalTerms" class="text-white text-xl sm:text-2xl md:text-3xl mx-auto text-left font-semibold px-3 md:mx-5"></div>
+
+                <div id="termsData" class="md:mx-6 md:grid grid-cols-2 xl:grid-cols-3"></div>
+            </div>
         </div>
 
-        <div class="text-white text-2xl sm:text-3xl md:text-4xl mx-auto md:mx-6 md:text-left text-center font-medium px-3 md:px-1 py-2">Choose an activity to do</div>
-        <div id="activities" class="text-white w-full px-3 pt-2 md:w-1/2">
-            <div id="flashcard-review" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6 bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 rounded-md" onclick="playGame('flashcards')">Flashcards</div>
-            <div id="matching-game" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6  bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 mt-2 rounded-md" onclick="playGame('matching')"> Match Game </div>
-            <div id="typing" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6 bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 mt-2 rounded-md" onclick="playGame('typing')">Typing</div>
-            <div id="hangman" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6 bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 mt-2 rounded-md" onclick="playGame('hangman')">Hangman</div>
-            <div id="quiz" class="hover:cursor-pointer hover:underline decoration-amber w-5/6 text-center mx-auto md:mx-6 bg-french-blue text-white hover:text-gray-200 text-2xl md:text-3xl font-bold p-2 mt-2 rounded-md" onclick="playGame('quiz')">Quiz</div>
-        </div>
-        <div id="terms">
-            <h1 class="text-white text-3xl sm:text-4xl md:text-5xl mx-auto text-left font-semibold px-3 pt-2 underline underline-offset-4 decoration-amber md:mx-5">Set contents</h1>
-            <div id="totalTerms" class="text-white text-xl sm:text-2xl md:text-3xl mx-auto text-left font-semibold px-3 md:mx-5"></div>
+        <div id="report" class="hidden">
+            <div class="h-full w-full md:w-1/2 bg-french-blue text-white mx-auto text-center md:my-6 md:rounded-md">
+                <div class="md:mx-3 overflow-auto flex md:flex">
+                    <span class="inline-block mt-2 ml-2 md:ml-1">
+                        <svg id="backArrow" onclick="report('back')" class="w-8 h-8 xsm:w-10 xsm:h-10 md:w-11 md:h-11 text-amber hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                        </svg> 
+                    </span> 
+                    <h1 class="text-4xl my-auto pt-2 md:pt-3 px-2 md:px-4 pb-4 md:pb-6 font-bold underline underline-offset-4 decoration-amber">Why are you reporting?</h1>
+                </div>
+                <div class="text-center my-1 mx-auto w-3/4">
+                    <div onclick="setReportReason('incorrect')" class="bg-burnt-orange rounded-md hover:cursor-pointer" id="report-incorrect">Incorrect term</div>
+                    <div onclick="setReportReason('inappropriate')" class="rounded-md hover:cursor-pointer" id="report-inappropriate">Inappropriate term</div>
+                </div>
 
-            <div id="termsData" class="md:mx-6 md:grid grid-cols-2 xl:grid-cols-3"></div>
+                <div class="py-2">
+                    <span id="send" onclick="sendReport()" class="hover:cursor-pointer text-center mx-auto text-white hover:opacity-90 hover:underline decoration-amber text-3xl md:text-4xl font-bold">Send report</span>
+                </div>
+            </div>
         </div>
     </body>
 </html>
