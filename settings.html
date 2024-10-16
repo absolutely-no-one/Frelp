@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="./tailwind.css">
+        <link rel="stylesheet" href="./scrollbar.css">
+
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
+        <script src="index.js"></script>
+        <script src="settings.js"></script>
+
+    </head>
+    <body class="flex min-h-screen flex-col" onload="getReports()">
+        <!-- bg not done in html tag because of bug with bg-attachment fixed -->
+        <div class="bg-gradient-to-bl from-blue-900/80 from-50% to-red-900/75 to-50% fixed bg-no-repeat bg-center w-screen h-screen -z-[1]"></div>
+
+        <div class="bg-french-blue">
+            <span class="inline-block mt-2 ml-2 pl-2 sm:pl-6">
+                <svg id="backArrow" onclick="switchPageTo('home')" class="w-8 h-8 xsm:w-10 xsm:h-10 md:w-11 md:h-11 text-amber hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg> 
+            </span>  
+            <div class="absolute right-2 top-2 sm:right-6 sm:top-2 float-right">
+                <div class="float-right">
+                    <button id="user" class="rounded-t-md" onclick="openPreferences()">
+                        <!-- icon from heroicons.com -->
+                        <svg class="w-12 h-12 sm:w-20 sm:h-20" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path clip-rule="evenodd" fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <br>
+                <div id="preferencesTabs" class="float-right -mt-2 sm:text-2xl mdlg:text-3xl" style="display:none;">
+                    <button onclick="switchPageTo('create/create')" class="bg-blue-600 text-white rounded-tl-md p-1 md:p-2 hover:underline hover:decoration-amber" id="createSet">Create set</button>
+                    <button onclick="switchPageTo('settings')" class="bg-blue-700 text-white rounded-tl-md p-1 md:p-2 hover:underline hover:decoration-amber">Settings</button>
+                    <button onclick="signOut()" class="bg-blue-800 text-white rounded-b-md p-1 md:p-2 hover:underline hover:decoration-amber">Sign out</button> 
+                </div>
+            </div>
+            
+            <div class="block md:inline-flex pb-3">
+                <h1 id="welcome" class="font-bold text-white whitespace-pre-line text-4xl sm:text-5xl md:text-6xl mx-auto text-left px-1 py-2 sm:px-2 md:py-6 md:pr-2">Settings</h1>
+            </div>
+        </div>
+
+        <div id="reports" class="bg-french-blue">
+            <h1 class="bg-french-blue text-3xl sm:text-4xl md:text-5xl"></h1>
+            <div id="reportData" class="text-white">
+            </div>
+        </div>
+
+    <div class="flex-auto"></div>
+        <footer class="grid grid-cols-4 text-sm md:text-md w-full bg-french-blue">
+            <p class="text-center mx-auto italic text-gray-300 p-2 col-span-2"> Icons from <a href="https://heroicons.com" class="underline">heroicons.com</a></p>
+            <p class="text-center mx-auto text-gray-300 p-2 col-span-2">Made by Absolutely No One</p>
+        </footer>   
+    </body>
+</html>
