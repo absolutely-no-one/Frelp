@@ -18,11 +18,11 @@ var databaseUsers = firebase.database().ref("users");
 firebase.auth().onAuthStateChanged((currentUser) => {
   if (currentUser) {
     // may change to display name associated with account
-    if (currentUser.displayName != currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@"))) {
+    /* if (currentUser.displayName != currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@"))) {
       currentUser.updateProfile({
         displayName: currentUser.email.toString().substring(0, currentUser.email.toString().indexOf("@"))
       })
-    }
+    } */
 
     user = currentUser;
     if (window.location.href.indexOf("index.html") > -1 || window.location.href.indexOf("login.html") > -1) {
@@ -36,6 +36,9 @@ function createAccount(email, password, username) {
   .then((userCredential) => {
     // Signed in 
     user = userCredential.user;
+    user.updateProfile({
+      displayName: username.toString().trim()
+    })
     signIn(email, password, "home");
     databaseUsers.child(user.uid).set({
       "username": username.toString().trim(),
