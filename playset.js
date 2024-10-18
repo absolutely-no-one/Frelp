@@ -135,12 +135,15 @@ function setReportReason(reason) {
 }
 
 function sendReport() {
-    var newReport = firebase.database().ref("reports").push();
-    newReport.set({
-        "id": id,
-        "type": type,
-        "reason": reportReason
-    }).then(() => {
-        report("back");
+    firebase.database().ref("sets/" + type + "/" + id).once("value").then((snapshot) => {
+        var newReport = firebase.database().ref("reports").push();
+        newReport.set({
+            "id": id,
+            "uid": snapshot.val().authorId,
+            "type": type,
+            "reason": reportReason
+        }).then(() => {
+            report("back");
+        })
     })
 }

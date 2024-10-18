@@ -318,6 +318,7 @@ function createSet(type) {
         newSet.set({
             "name": name,
             "author": user.displayName,
+            "authorId": user.uid,
             "terms": terms,
             "totalterms": count,
             "categories": categories
@@ -372,6 +373,7 @@ function createSet(type) {
     newSet.set({
         "name": name,
         "author": user.displayName,
+        "authorId": user.uid,
         "terms": terms,
         "totalterms": count,
         "categories": categories

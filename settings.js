@@ -1,4 +1,3 @@
-// fix this function 
 function getReports() {
 
     firebase.auth().onAuthStateChanged((currentUser) => {
@@ -15,6 +14,7 @@ function getReports() {
             var report = childSnapshot.val();
             var reportRef = firebase.database().ref("reports/" + childSnapshot.key);
             var set = firebase.database().ref("sets/" + report.type + "/" + report.id);
+            var userSet = firebase.database().ref("users/" + report.uid + "/sets/" + report.id);
             var setData = "";
 
             set.once("value").then((setSnapshot) => {
@@ -33,6 +33,7 @@ function getReports() {
             remove.addEventListener("click", () => {
                 reportRef.remove();
                 set.remove();
+                userSet.remove();
                 document.getElementById(childSnapshot.key).remove();
             });
 

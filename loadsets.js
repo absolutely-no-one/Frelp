@@ -2,6 +2,7 @@ types = ["vocab", "conjugation"];
 
 window.addEventListener("load", function () {
   loadMySets();
+  checkSettings();
   detectInput('category', 'possibleCategories', 'categories', 'possibleCategories');
 })
 
@@ -132,4 +133,12 @@ function loadMySets() {
           }
         }
       })
+}
+
+function checkSettings() {
+  firebase.auth().onAuthStateChanged((currentUser) => {
+    if (currentUser.displayName != "ntaylor0725" || currentUser.uid != "AyG7zZ6ghYQhx14Bd9RJBXSGXu53") {
+        document.getElementById("settings").remove();
+    }
+})
 }
