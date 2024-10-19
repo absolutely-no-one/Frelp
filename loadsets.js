@@ -78,7 +78,12 @@ function loadMySets() {
             })
           }
           })
-
+        } else {
+          document.getElementById("welcome").innerHTML = "Select a set below";
+          document.getElementById("user").remove();
+          document.getElementById("my-sets-header").remove();
+          document.getElementById("my-sets-container").remove();
+        }
           newSetData = firebase.database().ref("/sets/");
           for (var i = 0; i < types.length; i++) {
             newSetData.child(types[i]).limitToLast(5).once("value").then((snapshot) => {
@@ -131,14 +136,15 @@ function loadMySets() {
               })
             })
           }
-        }
       })
 }
 
 function checkSettings() {
   firebase.auth().onAuthStateChanged((currentUser) => {
+    if (currentUser) {
     if (currentUser.displayName != "ntaylor0725" || currentUser.uid != "AyG7zZ6ghYQhx14Bd9RJBXSGXu53") {
         document.getElementById("settings").remove();
     }
+  }
 })
 }
