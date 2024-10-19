@@ -38,10 +38,17 @@
                     <button onclick="signOut()" class="bg-blue-800 text-white rounded-b-md p-1 md:p-2 hover:underline hover:decoration-amber">Sign out</button> 
                 </div>
             </div>
-            
-            <div class="block md:inline-flex pb-3">
-                <h1 id="welcome" class="font-bold text-white whitespace-pre-line text-4xl sm:text-5xl md:text-6xl mx-auto text-left px-3 py-2 sm:px-6 md:py-6 md:pr-2">Bienvenue,</h1>
-                <h1 id="welcome-name" class="font-bold text-white whitespace-pre-line text-4xl sm:text-5xl md:text-6xl mx-auto text-left px-3 sm:px-6 md:py-6 md:pl-0"></h1>
+            <div id="header" class="md:mx-3 overflow-auto flex md:block">
+                <span id="backArrow" class="mt-2 sm:ml-2 ml-4 hidden">
+                    <svg id="back" onclick="switchPageTo('index')" class="w-8 h-8 xsm:w-10 xsm:h-10 md:w-11 md:h-11 text-amber hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                    </svg> 
+                </span> 
+                
+                <div id="header-container" class="block md:inline-flex pb-3">
+                    <h1 id="welcome" class="font-bold text-white whitespace-pre-line text-4xl sm:text-5xl md:text-6xl mx-auto text-left px-3 py-2 sm:px-6 md:py-6 md:pr-2">Bienvenue,</h1>
+                    <h1 id="welcome-name" class="font-bold text-white whitespace-pre-line text-4xl sm:text-5xl md:text-6xl mx-auto text-left px-3 sm:px-6 md:py-6 md:pl-0"></h1>
+                </div>
             </div>
         </div>
 

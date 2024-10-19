@@ -78,11 +78,15 @@ function loadMySets() {
             })
           }
           })
+          document.getElementById("header").className = "";
         } else {
           document.getElementById("welcome").innerHTML = "Select a set below";
           document.getElementById("user").remove();
           document.getElementById("my-sets-header").remove();
           document.getElementById("my-sets-container").remove();
+          document.getElementById("backArrow").style.display = "inline-block";
+          
+          document.getElementById("header-container").classList.remove("block");
         }
           newSetData = firebase.database().ref("/sets/");
           for (var i = 0; i < types.length; i++) {
