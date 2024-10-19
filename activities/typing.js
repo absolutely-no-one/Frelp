@@ -13,6 +13,8 @@ var countAccents = true;
 var onAnswerScreen = false;
 var termsSuggestReview = [];
 
+var enterClicks = 0;
+
 function generateTitle() {
     const data = firebase.database().ref("/sets/" + type + "/" + id);
 
@@ -59,6 +61,24 @@ function generateQuestions() {
                 onAnswerScreen = true;
                 this.readOnly = true;
                 answerQuestion(this.value.trim());
+            } else if (e.key == "Enter" && onAnswerScreen == true) {
+
+                document.getElementById("input").readOnly = false;
+                document.getElementById("input").classList.remove("bg-green-700");
+                document.getElementById("input").classList.remove("bg-french-red");
+        
+                onAnswerScreen = false;
+                if (termsWithoutReview != termsBetweenReview) {
+                    termsWithoutReview++;
+                }
+                document.getElementById("optionContainer").remove();
+                document.getElementById("input").value = "";
+                askQuestion();
+
+                if (currentQuestion == incorrectTerms[0] && incorrectTerms.length > 0 && termsWithoutReview == termsBetweenReview) {
+                    incorrectTerms.shift();
+                }
+                console.log(termsWithoutReview);
             }
         })
 
@@ -70,10 +90,14 @@ function askQuestion() {
     if (termsWithoutReview != termsBetweenReview && setData.length > 0) {
         currentQuestion = setData.pop();
         document.getElementById("question").innerHTML = currentQuestion.definition;
+        document.getElementById("input").focus();
+        document.getElementById("input").select();
     } else {
         if (incorrectTerms.length > 0) {
             currentQuestion = incorrectTerms[0];
             document.getElementById("question").innerHTML = currentQuestion.definition;
+            document.getElementById("input").focus();
+            document.getElementById("input").select();
         } else {
             if (setData.length == 0) {
                 finishTyping();
@@ -157,11 +181,10 @@ function answerQuestion(answer) {
         document.getElementById("optionContainer").remove();
         document.getElementById("input").value = "";
 
+        askQuestion();
         if (currentQuestion == incorrectTerms[0] && incorrectTerms.length > 0 && termsWithoutReview == termsBetweenReview) {
             incorrectTerms.shift();
         }
-
-        askQuestion();
     })
 
     subcontainer.appendChild(next);

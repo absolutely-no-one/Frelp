@@ -11,7 +11,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-database.js"></script>
         <script src="./index.js"></script>
     </head>
-    <body class="bg-black">
+    <body class="bg-black" onload="firebase.auth().signOut()"">
         <div class="bg-gradient-to-b from-french-blue/80 to-black p-2 pt-6 text-center sm:text-left sm:py-24 sm:px-12 md:py-48 md:px-32 sm:flex">
             <div class="sm:w-5/12">
                 <h1 class="font-bold text-white pb-2 text-5xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl underline decoration-amber">Greetings</h1>

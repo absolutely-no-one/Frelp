@@ -94,7 +94,7 @@ function accountError(code) {
       alert("Error: Incorrect password.");
     break;
     default: 
-      alert("whoops");
+      alert("Whoops.  Unknown error.");
   }
 }
 
